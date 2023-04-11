@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="1" nextlayerid="108" nextobjectid="765">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="1" nextlayerid="109" nextobjectid="766">
  <editorsettings>
-  <export target="../proto 2/assets/Map_Tiled.json" format="json"/>
+  <export target="../assets/Map_Tiled.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="temp tileset.tsx"/>
- <layer id="107" name="Calque de Tuiles 1" width="30" height="20">
+ <layer id="107" name="sol" width="30" height="20">
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
-52,52,52,52,52,52,52,52,52,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,0,0,0,0,0,0,0,0,52,0,0,0,0,0,0,
-52,52,52,52,52,52,52,52,52,52,0,0,0,0,0,0,
+152,152,152,152,152,152,152,152,152,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,54,54,54,54,54,54,54,54,152,0,0,0,0,0,0,
+152,152,152,152,152,152,152,152,152,152,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -26,4 +26,7 @@
 </chunk>
   </data>
  </layer>
+ <objectgroup id="108" name="terre">
+  <object id="765" gid="261" x="256" y="320" width="64" height="64"/>
+ </objectgroup>
 </map>

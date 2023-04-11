@@ -133,4 +133,9 @@
    <property name="tiled_light_radius" type="int" value="100"/>
   </properties>
  </tile>
+ <tile id="260">
+  <properties>
+   <property name="cell_type" value="neutral"/>
+  </properties>
+ </tile>
 </tileset>
