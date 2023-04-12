@@ -35,6 +35,17 @@ class test extends Phaser.Scene {
 
         this.blocs = this.physics.add.group();
 
+        this.test_string ="";
+
+        carteDuNiveau.layers[0].data.forEach((tile_array,Forindex) =>{
+
+            tile_array.forEach((tile,pindex)=>{
+                this.test_string = this.test_string + "x:"+tile.x+"y:"+tile.y+"[" + tile.index +"\t]";
+            });
+            console.log(this.test_string);
+            this.test_string = "";
+        })
+
         carteDuNiveau.getObjectLayer('terre').objects.forEach((bloc,index) => {
 
             
