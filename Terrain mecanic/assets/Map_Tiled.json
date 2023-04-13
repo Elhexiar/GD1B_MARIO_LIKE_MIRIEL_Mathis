@@ -5,21 +5,21 @@
         {
          "chunks":[
                 {
-                 "data":[152, 152, 152, 152, 152, 152, 152, 152, 152, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 54, 54, 54, 54, 54, 54, 54, 54, 152, 0, 0, 0, 0, 0, 0,
-                    152, 152, 152, 152, 152, 152, 152, 152, 152, 152, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                 "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
+                    0, 54, 54, 54, 54, 54, 54, 54, 54, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  "height":16,
                  "width":16,
@@ -42,20 +42,20 @@
          "chunks":[
                 {
                  "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 2761, 2761, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 2761, 2761, 0, 2761, 2761, 2761, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 2761, 0, 2761, 2761, 2761, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 2761, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 2761, 2761, 2761, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 0, 0, 0, 0, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 261, 0, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 261, 0, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 0, 0, 0, 261, 261, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 261, 261, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 261, 261, 261, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 261, 261, 261, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 261, 261, 261, 261, 261, 0, 261, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 261, 261, 261, 261, 261, 261, 0, 0, 0, 0, 0, 0, 0,
+                    0, 261, 261, 261, 261, 261, 261, 0, 261, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  "height":16,
                  "width":16,
@@ -65,6 +65,42 @@
          "height":16,
          "id":109,
          "name":"blobs",
+         "opacity":1,
+         "startx":0,
+         "starty":0,
+         "type":"tilelayer",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "chunks":[
+                {
+                 "data":[151, 151, 151, 151, 151, 151, 151, 151, 151, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 0, 0, 0, 0, 0, 0, 0, 0, 151, 0, 0, 0, 0, 0, 0,
+                    151, 151, 151, 151, 151, 151, 151, 151, 151, 151, 0, 0, 0, 0, 0, 0],
+                 "height":16,
+                 "width":16,
+                 "x":0,
+                 "y":0
+                }],
+         "height":16,
+         "id":110,
+         "name":"mur",
          "opacity":1,
          "startx":0,
          "starty":0,
@@ -91,7 +127,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":110,
+ "nextlayerid":111,
  "nextobjectid":773,
  "orientation":"orthogonal",
  "renderorder":"right-down",
@@ -458,361 +494,6 @@
                          "name":"cell_type",
                          "type":"string",
                          "value":"neutral"
-                        }]
-                }],
-         "tilewidth":64
-        }, 
-        {
-         "columns":50,
-         "firstgid":2501,
-         "image":"..\/..\/..\/Zelda Like\/GD1B_AVENTURE_MIRIEL_Mathis\/Ressources\/temp tileset.png",
-         "imageheight":3200,
-         "imagewidth":3200,
-         "margin":0,
-         "name":"temp tileset",
-         "spacing":0,
-         "tilecount":2500,
-         "tileheight":64,
-         "tiles":[
-                {
-                 "id":0,
-                 "properties":[
-                        {
-                         "name":"estSolide",
-                         "type":"bool",
-                         "value":true
-                        }]
-                }, 
-                {
-                 "id":1,
-                 "properties":[
-                        {
-                         "name":"estSolide",
-                         "type":"bool",
-                         "value":true
-                        }]
-                }, 
-                {
-                 "id":15,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"fff253"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":4
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":400
-                        }]
-                }, 
-                {
-                 "id":16,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ff7d1d"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":4
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":400
-                        }]
-                }, 
-                {
-                 "id":17,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"a0df59"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":4
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":400
-                        }]
-                }, 
-                {
-                 "id":18,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ffffff"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":4
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":400
-                        }]
-                }, 
-                {
-                 "id":50,
-                 "properties":[
-                        {
-                         "name":"estSolide",
-                         "type":"bool",
-                         "value":true
-                        }]
-                }, 
-                {
-                 "id":51,
-                 "properties":[
-                        {
-                         "name":"estSolide",
-                         "type":"bool",
-                         "value":true
-                        }]
-                }, 
-                {
-                 "id":65,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"fff253"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":300
-                        }]
-                }, 
-                {
-                 "id":66,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ff7d1d"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":300
-                        }]
-                }, 
-                {
-                 "id":67,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"a0df59"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":300
-                        }]
-                }, 
-                {
-                 "id":68,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ffffff"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":300
-                        }]
-                }, 
-                {
-                 "id":115,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"fff253"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":200
-                        }]
-                }, 
-                {
-                 "id":116,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ff7d1d"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":200
-                        }]
-                }, 
-                {
-                 "id":117,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"a0df59"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":200
-                        }]
-                }, 
-                {
-                 "id":118,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ffffff"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":200
-                        }]
-                },
-            
-                {
-                 "id":165,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"fff253"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":0.5
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":100
-                        }]
-                }, 
-                {
-                 "id":166,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ff7d1d"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":0.5
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":100
-                        }]
-                }, 
-                {
-                 "id":167,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"a0df59"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":0.5
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":100
-                        }]
-                }, 
-                {
-                 "id":168,
-                 "properties":[
-                        {
-                         "name":"couleur_string",
-                         "type":"string",
-                         "value":"ffffff"
-                        }, 
-                        {
-                         "name":"intensity",
-                         "type":"float",
-                         "value":0.5
-                        }, 
-                        {
-                         "name":"tiled_light_radius",
-                         "type":"int",
-                         "value":100
                         }]
                 }],
          "tilewidth":64
