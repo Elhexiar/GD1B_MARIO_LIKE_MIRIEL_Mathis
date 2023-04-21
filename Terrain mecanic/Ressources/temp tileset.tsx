@@ -105,6 +105,26 @@
    <property name="tiled_light_radius" type="int" value="200"/>
   </properties>
  </tile>
+ <tile id="158">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="159">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="160">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="161">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
  <tile id="165">
   <properties>
    <property name="couleur_string" value="fff253"/>
@@ -133,9 +153,64 @@
    <property name="tiled_light_radius" type="int" value="100"/>
   </properties>
  </tile>
+ <tile id="208">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="209">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="210">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="211">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="258">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="259">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
  <tile id="260">
   <properties>
-   <property name="cell_type" value="neutral"/>
+   <property name="cell_type" value="dirt"/>
+  </properties>
+ </tile>
+ <tile id="261">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="308">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="309">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="310">
+  <properties>
+   <property name="cell_type" value="null"/>
+  </properties>
+ </tile>
+ <tile id="311">
+  <properties>
+   <property name="cell_type" value="null"/>
   </properties>
  </tile>
 </tileset>

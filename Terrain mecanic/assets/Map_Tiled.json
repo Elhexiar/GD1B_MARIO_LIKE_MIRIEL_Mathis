@@ -412,6 +412,42 @@
                 },
             
                 {
+                 "id":158,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":159,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":160,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":161,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
                  "id":165,
                  "properties":[
                         {
@@ -488,12 +524,112 @@
                         }]
                 }, 
                 {
+                 "id":208,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":209,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":210,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":211,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":258,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":259,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
                  "id":260,
                  "properties":[
                         {
                          "name":"cell_type",
                          "type":"string",
-                         "value":"neutral"
+                         "value":"dirt"
+                        }]
+                }, 
+                {
+                 "id":261,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                },
+            
+                {
+                 "id":308,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":309,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":310,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
+                        }]
+                }, 
+                {
+                 "id":311,
+                 "properties":[
+                        {
+                         "name":"cell_type",
+                         "type":"string",
+                         "value":"null"
                         }]
                 }],
          "tilewidth":64
