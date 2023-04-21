@@ -7,6 +7,9 @@ class test extends Phaser.Scene {
 
         this.load.image("Phaser_tileset", "assets/Tileset.png");
         this.load.tilemapTiledJSON("carte", "assets/Map_Tiled.json");
+        for(var i = 0; i < 16 ; i++){
+            this.load.image('blob '+i,'assets/blob '+i+'.png');
+        }
         
     }
     create() {
@@ -23,8 +26,18 @@ class test extends Phaser.Scene {
 
 
 
-        this.test = new Cell_Map(16,16,64,this.blocs);
+        this.test = new Cell_Map(16,16,64,carteDuNiveau);
         testeur = this.test
+
+        for(let y = 0; y < 16; y++){
+            for(let x = 0 ; x < 16 ; x++){
+
+                this.sprite_to_use = Adapt_sprite(x,y,this.test.map_layers);
+
+                sprite_list =  this.blocs.create(x*64+32,y*64+32,this.sprite_to_use).setImmovable(true);
+            }
+
+        }
 
 
     }
@@ -42,7 +55,7 @@ var testeur;
 class Cell_Map {
     constructor (width,height,pixel_size,tilled_map,physics_group) {
 
-        this.referenced_tilled_map;
+        this.referenced_tilled_map = tilled_map;
         this.map_width = width;
         this.map_height = height;
         
@@ -53,21 +66,27 @@ class Cell_Map {
 
         
 
-        for(let i = 0; i < height; i++){
+        for(let y = 0; y < height; y++){
         
-            this.map_layers[i] = [];
-            for(let j = 0 ; j < width ; j++){
+            this.map_layers[y] = [];
+            for(let x = 0 ; x < width ; x++){
 
-                this.map_layers[i][j] = new Cell(i,j,this.pixel_cell_size);
+                this.map_layers[y][x] = new Cell(y,x,this.pixel_cell_size,);
 
-                console.log(j,i)
+                console.log("y:",y,"|x:",x)
 
-                this.sprite_to_use = Adapt_sprite(j,i,this.map_layers);
+                
 
                 //sprite_list =  physics_group.create(j*64+32,i*64+32,this.sprite_to_use).setImmovable(true);
             }
 
         }
+
+        
+
+
+
+        
 
         
     }
@@ -77,13 +96,13 @@ class Cell_Map {
 
 class Cell {
 
-    constructor (y,x,pixel_size){
+    constructor (y,x,pixel_size,type){
 
         this.x_map = x;
         this.y_map = y;
         this.x_pixel_coord = x*pixel_size;
         this.y_pixel_coord = y*pixel_size;
-        this.cell_type = new Cell_Type()
+        this.cell_type = new Cell_Type(type)
 
         
     }
@@ -101,12 +120,22 @@ class Cell {
 
 class Cell_Type {
 
-    constructor (){
-        this.name = 'dirt';
-        this.texture = 'dirt.png';
-        this.drop = item_dirt_drop;
-        this.is_mineable = true;
-        this.hp = 3;
+    constructor (type){
+
+        if(type == 'dirt'){
+            this.name = 'dirt';
+            this.texture = 'dirt.png';
+            this.drop = item_dirt_drop;
+            this.is_mineable = true;
+            this.hp = 3;
+        }else{
+            this.name = 'none'
+            this.texture = 'none';
+            this.drop = item_dirt_drop;
+            this.is_mineable = false;
+            this.hp = 1;
+        }
+        
     }
 
 
@@ -121,9 +150,17 @@ class item_dirt_drop {
 
 function x_from_map(chosen_x,chosen_y,carte){
 
-    console.log(carte[0][0])
+    //console.log(carte[0][0])
     console.log(chosen_y,chosen_x)
-    return carte[chosen_y][chosen_x].cell_type
+
+    if(chosen_x>0 && chosen_x<16 && chosen_y > 0 && chosen_y < 16){
+        return carte[chosen_y][chosen_x].cell_type
+    }else{
+        return true
+    }
+
+
+    
 }
 
 function Adapt_sprite(current_x,current_y,Carte_Object){
@@ -140,23 +177,23 @@ function Adapt_sprite(current_x,current_y,Carte_Object){
     down = false;
     left = false;
     //if there is blob up
-    if(x_from_map(current_x,current_y-1,Carte_Object).name == 'dirt'){
-        console.log("up");
+    if(x_from_map(current_x,current_y-1,Carte_Object).name == 'dirt' ||x_from_map(current_x,current_y-1,Carte_Object) == true){
+        //console.log("up");
         up = true
     }
     //if there is blob right
-    if(x_from_map(current_x+1,current_y,Carte_Object).name == 'dirt'){
-        console.log("right");
+    if(x_from_map(current_x+1,current_y,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == true){
+        //console.log("right");
         right = true
     }
     //if there is blob down
-    if(x_from_map(current_x,current_y+1,Carte_Object).name == 'dirt'){
-        console.log("down");
+    if(x_from_map(current_x,current_y+1,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == true){
+        //console.log("down");
         down = true
     }
     //if there is blob left
-    if(x_from_map(current_x-1,current_y,Carte_Object).name == 'dirt'){
-        console.log("left");
+    if(x_from_map(current_x-1,current_y,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == true){
+        //console.log("left");
         left = true
     }
 
@@ -164,50 +201,50 @@ function Adapt_sprite(current_x,current_y,Carte_Object){
 
     if(up == true && right == true && left == false && down == false){
         sprite_to_return = blob_sprites.down_corner_left;
-        console.log("down corner left")
+        //console.log("down corner left")
     }else if(up == true && right == false && left == true && down == false){
         sprite_to_return = blob_sprites.down_corner_right;
-        console.log("down corner right")
+        //console.log("down corner right")
     }else if(up == false && right == true && left == false && down == true){
         sprite_to_return = blob_sprites.up_corner_left;
-        console.log("up corner left")
+        //console.log("up corner left")
     }else if(up == false && right == false && left == true && down == true){
         sprite_to_return = blob_sprites.up_corner_right;
-        console.log("up corner right")
+        //console.log("up corner right")
     }else if(up == false && right == false && left == false && down == true){
         sprite_to_return = blob_sprites.up_alone
-        console.log("up alone")
+        //console.log("up alone")
     }else if(up == false && right == true && left == false && down == false){
         sprite_to_return = blob_sprites.left_only
-        console.log("left only")
+        //console.log("left only")
     }else if(up == false && right == false && left == true && down == false){
         sprite_to_return = blob_sprites.right_alone
-        console.log("right alone")
+        //console.log("right alone")
     }else if(up == true && right == false && left == false && down == false){
         sprite_to_return = blob_sprites.down_alone
-        console.log("down alone")
+        //console.log("down alone")
     }else if(up == true && right == false && left == false && down == true){
         sprite_to_return = blob_sprites.stretch_vertical
-        console.log("stretch vertical")
+        //console.log("stretch vertical")
     }else if(up == false && right == true && left == true && down == false){
         sprite_to_return = blob_sprites.stretch_horizontal
-        console.log("stretch horizontal")
+        //console.log("stretch horizontal")
     }else if(up == false && right == true && left == true && down == true){
         sprite_to_return = blob_sprites.up_only
-        console.log("up only")
+        //console.log("up only")
     }else if(up == true && right == false && left == true && down == true ){
         sprite_to_return = blob_sprites.right_only
-        console.log("right only")
+        //console.log("right only")
     }else if(up == true && right == true && left == false && down == true){
         sprite_to_return = blob_sprites.left_only
-        console.log("left only")
+        //console.log("left only")
     }else if(up == true && right == true && left == true && down == false){
         sprite_to_return = blob_sprites.down_only
-        console.log("down only")
+        //console.log("down only")
     }
 
     if(up==true && right==true && left==true && down==true){
-        console.log("WHAT")
+        //console.log("WHAT")
         sprite_to_return = blob_sprites.central;
     }
 
