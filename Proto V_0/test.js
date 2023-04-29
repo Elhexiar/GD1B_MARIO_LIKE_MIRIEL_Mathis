@@ -10,6 +10,8 @@ class test extends Phaser.Scene {
         for(var i = 0; i < 16 ; i++){
             this.load.image('blob '+i,'assets/blob '+i+'.png');
         }
+        this.load.spritesheet('perso','assets/perso.png',
+                { frameWidth: 22, frameHeight: 28 });
         
     }
     create() {
@@ -24,25 +26,98 @@ class test extends Phaser.Scene {
 
         this.blocs = this.physics.add.group({allowGravity : false});
 
+        
 
 
-        this.test = new Cell_Map(16,16,64,carteDuNiveau);
-        testeur = this.test
 
+        main_map = new Cell_Map(16,16,64,carteDuNiveau);
+        
+
+        
         for(let y = 0; y < 16; y++){
             for(let x = 0 ; x < 16 ; x++){
+                if(carteDuNiveau.layers[1].data[y][x].properties.cell_type == 'neutral'){
+                    main_map.Change_cell(x,y,'dirt');
+                    
+                }
+            }
+        }
+        for(let y = 0; y < 16; y++){
+            sprite_list[y]=[]
+            for(let x = 0 ; x < 16 ; x++){
 
-                this.sprite_to_use = Adapt_sprite(x,y,this.test.map_layers);
+                if(main_map.Get_specific_cell_type_name(x,y) == 'dirt'){
 
-                sprite_list =  this.blocs.create(x*64+32,y*64+32,this.sprite_to_use).setImmovable(true);
+                    this.sprite_to_use = Adapt_sprite(x,y,main_map.map_layers);
+                    console.log(this.sprite_to_use);
+                    sprite_list[y][x] =  this.blocs.create(x*64+32,y*64+32,this.sprite_to_use).setImmovable(true);
+                    
+
+                }
+
             }
 
         }
+        bloc_testeur = this.blocs
+
+        this.input.on('pointerdown', function PointerDown(pointer){
+
+            this.selected_cell_x = (pointer.x - pointer.x%64)/64
+            this.selected_cell_y = (pointer.y - pointer.y%64)/64
+            console.log("x :",this.selected_cell_x,"|y :",this.selected_cell_y);
+
+            Destroy_selected_cell(this.selected_cell_x,this.selected_cell_y,main_map,sprite_list,bloc_testeur)
+
+        });
+
+
+        this.player = this.physics.add.sprite(100, 100, 'perso');
+
+        this.player.setGravity(0,11000)
+        this.physics.add.collider(this.player, bloc_testeur);
+        this.physics.add.collider(this.player, this.calque_mur);
+        this.cursors = this.input.keyboard.createCursorKeys();
+        
+
+        
+
+
+        
+                //this.sprite_to_use = Adapt_sprite(x,y,this.test.map_layers);
+
+                //sprite_list =  this.blocs.create(x*64+32,y*64+32,this.sprite_to_use).setImmovable(true);
+        
 
 
     }
 
     update() { 
+
+        if (this.cursors.right.isDown)                           
+                    {                                         
+                        this.player.setVelocityX(200);                                                 
+                    } 
+                else if (this.cursors.left.isDown)                           
+                    {                                     
+                        this.player.setVelocityX(-200);                                                          
+                    }                                                   
+                else {
+                    this.player.setVelocityX(0);
+                }
+                if (this.cursors.up.isDown)                           
+                    {                                       
+                        this.player.setVelocityY(-500);                                               
+                    }
+                                                                   
+                else if (this.cursors.down.isDown)                           
+                    {                                      
+                        this.player.setVelocityY(500);                                                            
+                    } 
+
+                else {
+                    
+                    this.player.setVelocityY(0);
+                }
         
     }
 
@@ -50,7 +125,8 @@ class test extends Phaser.Scene {
     
 };
 
-var testeur;
+var bloc_testeur;
+var main_map;
 
 class Cell_Map {
     constructor (width,height,pixel_size,tilled_map,physics_group) {
@@ -71,7 +147,7 @@ class Cell_Map {
             this.map_layers[y] = [];
             for(let x = 0 ; x < width ; x++){
 
-                this.map_layers[y][x] = new Cell(y,x,this.pixel_cell_size,);
+                this.map_layers[y][x] = new Cell(y,x,this.pixel_cell_size,'air');
 
                 console.log("y:",y,"|x:",x)
 
@@ -81,14 +157,17 @@ class Cell_Map {
             }
 
         }
-
         
+    }
 
+    Change_cell(x,y,type){
 
+        this.map_layers[y][x].Change_cell_self(type)
 
-        
+    }
 
-        
+    Get_specific_cell_type_name(x,y){
+        return this.map_layers[y][x].cell_type.name
     }
 
 
@@ -116,6 +195,10 @@ class Cell {
 
     }
 
+    Change_cell_self(type){
+        this.cell_type.Change_cell_type(type)
+    }
+
 }
 
 class Cell_Type {
@@ -128,6 +211,13 @@ class Cell_Type {
             this.drop = item_dirt_drop;
             this.is_mineable = true;
             this.hp = 3;
+        }else
+        if(type == 'air'){
+            this.name = 'air'
+            this.texture = 'air';
+            this.drop = item_dirt_drop;
+            this.is_mineable = false;
+            this.hp = 1;
         }else{
             this.name = 'none'
             this.texture = 'none';
@@ -136,6 +226,25 @@ class Cell_Type {
             this.hp = 1;
         }
         
+    }
+
+    Change_cell_type(type){
+        if(type == 'dirt'){
+            this.name = 'dirt';
+            this.texture = 'dirt.png';
+            this.drop = item_dirt_drop;
+            this.is_mineable = true;
+            this.hp = 3;
+        }
+        if(type == 'air'){
+            this.name = 'air'
+            this.texture = 'air';
+            this.drop = item_dirt_drop;
+            this.is_mineable = false;
+            this.hp = 1;
+        }
+
+
     }
 
 
@@ -151,7 +260,8 @@ class item_dirt_drop {
 function x_from_map(chosen_x,chosen_y,carte){
 
     //console.log(carte[0][0])
-    console.log(chosen_y,chosen_x)
+    console.log('look',chosen_y,chosen_x)
+    //console.log(carte)
 
     if(chosen_x>0 && chosen_x<16 && chosen_y > 0 && chosen_y < 16){
         return carte[chosen_y][chosen_x].cell_type
@@ -215,8 +325,8 @@ function Adapt_sprite(current_x,current_y,Carte_Object){
         sprite_to_return = blob_sprites.up_alone
         //console.log("up alone")
     }else if(up == false && right == true && left == false && down == false){
-        sprite_to_return = blob_sprites.left_only
-        //console.log("left only")
+        sprite_to_return = blob_sprites.left_alone
+        //console.log("left alone")
     }else if(up == false && right == false && left == true && down == false){
         sprite_to_return = blob_sprites.right_alone
         //console.log("right alone")
@@ -248,7 +358,7 @@ function Adapt_sprite(current_x,current_y,Carte_Object){
         sprite_to_return = blob_sprites.central;
     }
 
-    console.log("final log = "+sprite_to_return+"for blob :"+blob_counter+ "\t up: "+up+"|right "+right+"|down "+down+"|left"+left);
+    //console.log("final log = "+sprite_to_return+"for blob :"+blob_counter+ "\t up: "+up+"|right "+right+"|down "+down+"|left"+left);
     //console.log("test log = "+blob_sprites.default);
 
     blob_counter = blob_counter +1;
@@ -285,5 +395,124 @@ var blob_sprites = {
     right_alone : "blob 3",
     stretch_vertical : "blob 4",
     down_alone : "blob 8",
+
+};
+
+
+function Update_texture_override(carte,bloc_testeur){
+
+    for(let y = 0; y < 16; y++){
+        for(let x = 0 ; x < 16 ; x++){
+
+            if(carte.Get_specific_cell_type_name(x,y) == 'dirt'){
+
+                
+                this.new_sprite = Adapt_sprite(x,y,carte.map_layers);
+                if(this.new_sprite != this.current_sprite){
+                    sprite_list[y][x].destroy()
+                    sprite_list[y][x] =  bloc_testeur.create(x*64+32,y*64+32,this.sprite_to_use).setImmovable(true);
+                }
+
+            }
+
+        }
+
+    }
+
+    
+    
+}
+
+function Destroy_selected_cell(x,y,carte,sprite_list,physics_bloc){
+
+    console.log(x)
+    carte.Change_cell(x,y,'air');
+
+    if(sprite_list[y][x] != undefined){
+        sprite_list[y][x].destroy()
+    }
+
+    Update_adjacent_sprites(x,y,sprite_list,physics_bloc)
+    
+    if(y+1 < 16 && y-1 > 0){
+        if(main_map.map_layers[y-1][x].cell_type.name == 'dirt'){
+        Update_adjacent_sprites(x,y-1,sprite_list,physics_bloc)
+        }
+        if(main_map.map_layers[y+1][x].cell_type.name == 'dirt'){
+        Update_adjacent_sprites(x,y+1,sprite_list,physics_bloc)
+        }
+    }
+    if(x+1 < 16 && y-1 > 0){
+        if(main_map.map_layers[y][x-1].cell_type.name == 'dirt'){
+        Update_adjacent_sprites(x-1,y,sprite_list,physics_bloc)
+        }
+        if(main_map.map_layers[y][x+1].cell_type.name == 'dirt'){
+        Update_adjacent_sprites(x+1,y,sprite_list,physics_bloc)
+        }
+    }
+
+
+};
+
+function Update_adjacent_sprites(x,y,sprite_list,physics_bloc){
+
+    console.log(x,y)
+
+    
+        if(y>0 && y <16){
+            //above
+            if(sprite_list[y-1][x] != undefined && main_map.map_layers[y-1][x].cell_type.name == 'dirt'){
+                console.log('update above')
+                this.current_sprite = sprite_list[y-1][x].texture.key
+                this.new_sprite = Adapt_sprite(x,y-1,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    sprite_list[y-1][x].destroy()
+                    sprite_list[y-1][x] = physics_bloc.create(x*64+32,(y-1)*64+32,this.new_sprite).setImmovable(true);
+                }
+
+            }
+        
+            //under
+            if(sprite_list[y+1][x] != undefined && main_map.map_layers[y+1][x].cell_type.name == 'dirt'){
+                console.log('update under')
+                this.current_sprite = sprite_list[y+1][x].texture.key
+                this.new_sprite = Adapt_sprite(x,y+1,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    sprite_list[y+1][x].destroy()
+                    sprite_list[y+1][x] = physics_bloc.create(x*64+32,(y+1)*64+32,this.new_sprite).setImmovable(true);
+                }
+                
+            }
+        }
+        
+
+        if(x > 0 && y < 16){
+            //to the right
+            if(sprite_list[y][x+1] != undefined && main_map.map_layers[y][x+1].cell_type.name == 'dirt'){
+                console.log('update right')
+                this.current_sprite = sprite_list[y][x+1].texture.key
+                this.new_sprite = Adapt_sprite(x+1,y,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    sprite_list[y][x+1].destroy()
+                    sprite_list[y][x+1] = physics_bloc.create((x+1)*64+32,y*64+32,this.new_sprite).setImmovable(true);
+                }
+            }
+
+            //to the left
+            if(sprite_list[y][x-1] != undefined && main_map.map_layers[y][x-1].cell_type.name == 'dirt'){
+                console.log('update left')
+                this.current_sprite = sprite_list[y][x-1].texture.key
+                this.new_sprite = Adapt_sprite(x-1,y,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    sprite_list[y][x-1].destroy()
+                    sprite_list[y][x-1] = physics_bloc.create((x-1)*64+32,y*64+32,this.new_sprite).setImmovable(true);
+                }
+            }
+        }
+    
 
 }
