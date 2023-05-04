@@ -1,0 +1,80 @@
+%!Adobe-FontList 1.23
+%Locale:0x40c
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:LegendBold
+FamilyName:Legend
+StyleName:Bold
+FullName:Legend Bold
+MenuName:Legend
+StyleBits:2
+WritingScript:Roman
+OutlineFileName:D:\MIRIEL Mathis\GD1B_MARIO_LIKE_MIRIEL_Mathis\DA\GD\Dossier GD\Document fonts\Legend Bold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+VariableFontType:NonVariableFont
+FileLength:467016
+FileModTime:1681828048
+WeightClass:700
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Legend Bold
+NameArray:0,Win,1,Legend
+NameArray:0,Win,16,Legend
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MinionPro-Regular
+FamilyName:Minion Pro
+StyleName:Regular
+FullName:Minion Pro
+MenuName:Minion Pro
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\MIRIEL Mathis\GD1B_MARIO_LIKE_MIRIEL_Mathis\DA\GD\Dossier GD\Document fonts\MinionPro-Regular.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+VariableFontType:NonVariableFont
+FileLength:218640
+FileModTime:1683185571
+WeightClass:400
+WidthClass:5
+AngleClass:0
+DesignSize:110
+NameArray:0,Mac,4,Minion Pro
+NameArray:0,Win,1,Minion Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MiriamLibre-Bold
+FamilyName:Miriam Libre
+StyleName:Bold
+FullName:Miriam Libre Bold
+MenuName:Miriam Libre
+StyleBits:2
+WritingScript:Roman
+OutlineFileName:D:\MIRIEL Mathis\GD1B_MARIO_LIKE_MIRIEL_Mathis\DA\GD\Dossier GD\Document fonts\MiriamLibre-Bold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+VariableFontType:NonVariableFont
+FileLength:65920
+FileModTime:1660143418
+WeightClass:700
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Miriam Libre Bold
+NameArray:0,Win,1,Miriam Libre
+%EndFont
+
