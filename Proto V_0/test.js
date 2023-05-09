@@ -72,6 +72,7 @@ class test extends Phaser.Scene {
 
 
         this.player = this.physics.add.sprite(100, 100, 'perso');
+        
 
         this.player.setGravity(0,11000)
         this.physics.add.collider(this.player, bloc_testeur);

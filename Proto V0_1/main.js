@@ -4,14 +4,14 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-        gravity: { y: 12000 },
+        gravity: { y: 2000 },
         debug: true
         }
     },
     input:{gamepad:true},
     maxLights : 20, 
 
-    scene: [test,surface]
+    scene: [surface]
 
    
 
