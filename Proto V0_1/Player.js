@@ -1,7 +1,13 @@
+var player_config = {
+    HP : 3,
+    speed : 500,
+    jumpForce : 800,
+}
+
 class Player {
 
     constructor(spriteSheet,x,y,scene){
-        this.HP = 3
+        this.HP = player_config.HP
 
         this.scene = scene;
 
@@ -12,9 +18,9 @@ class Player {
         this.y = y
 
         // Player speed
-        this.speed = 320;
+        this.speed = player_config.speed;
 
-        this.jumpForce = 800;
+        this.jumpForce = player_config.jumpForce;
 
 
         //states
@@ -27,7 +33,7 @@ class Player {
         this.onGround = true;
         
         //generation du sprite du joueur
-        this.player_sprite = GeneratePlayerSprite(spriteSheet,this.scene);
+        this.player_sprite = GeneratePlayerSprite(spriteSheet,this.scene,this);
 
 
     }
@@ -82,16 +88,19 @@ class Player {
                 }else{
                     this.onGround = false
                 }
+
+                this.x = this.player_sprite.x
+                this.y = this.player_sprite.y
     }
 
 
 
 }
 
-function GeneratePlayerSprite(spriteSheet,scene){
+function GeneratePlayerSprite(spriteSheet,scene,player){
 
     
-    return scene.physics.add.sprite(100, 100, 'perso');
+    return scene.physics.add.sprite(player.spawnX, player.spawnY, 'perso');
 
 
 }

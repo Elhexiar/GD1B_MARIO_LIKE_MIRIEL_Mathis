@@ -1,17 +1,34 @@
+
+const WIDTH = 1600;
+const HEIGHT = 900;
+const ZOOM_FACTOR = 1; 
+
+const SHARED_CONFIG = {
+  width: WIDTH,
+  height: HEIGHT,
+  zoomFactor: ZOOM_FACTOR,
+  leftTopCorner: {
+    x: (WIDTH - (WIDTH / ZOOM_FACTOR)) / 2,
+    y: (HEIGHT - (HEIGHT / ZOOM_FACTOR)) / 2
+  }
+}
+
+
+
 var config = {
     type: Phaser.AUTO,
-    width: 1600, height: 900,
+    width: SHARED_CONFIG.width, height: SHARED_CONFIG.height,
     physics: {
         default: 'arcade',
         arcade: {
-        gravity: { y: 2000 },
+        gravity: { y: 1000 },
         debug: true
         }
     },
     input:{gamepad:true},
     maxLights : 20, 
 
-    scene: [surface]
+    scene: [surface,underground_level_01]
 
    
 
