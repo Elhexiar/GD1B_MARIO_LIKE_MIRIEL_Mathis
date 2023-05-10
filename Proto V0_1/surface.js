@@ -44,6 +44,12 @@ class surface extends Phaser.Scene {
         this.physics.add.collider(this.player.player_sprite,this.calque_sol);
         //this.physics.add.collider(this.player.player_sprite,this.test);
 
+
+
+        //Gestion Camera
+        this.cameras.main.startFollow(this.player.player_sprite,false,1,1,0,CAMERA_OFFSET); 
+        this.cameras.main.zoom = 1.3;
+
         
 
 
@@ -93,3 +99,5 @@ function UpdatePlayerInput(cursor){
 
 
 var test_var
+
+var CAMERA_OFFSET = 220
