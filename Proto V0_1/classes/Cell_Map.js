@@ -242,7 +242,7 @@ var blob_sprites = {
     up_only : "blob 1",
     up_corner_right : "blob 2",
     right_only : "blob 6",
-    down_corner_right : "blob 8",
+    down_corner_right : "blob 10",
     down_only : "blob 9",
     down_corner_left : "blob 8",
     left_only : "blob 4",
