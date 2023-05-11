@@ -14,10 +14,31 @@ class underground_level_01 extends Phaser.Scene {
         for(var i = 0; i < 16 ; i++){
             this.load.image('blob '+i,'ressources/assets/dirt/dirt'+i+'.png');
         }
+        this.load.spritesheet('Damage_Sprite','ressources/assets/damage_spriteSheet.png',
+        {      frameWidth: 64, frameHeight: 64          });
         
         
     }
     create() {
+
+        this.anims.create({
+            key: '3HP',
+            frames: [{key: 'Damage_Sprite', frame :0}],
+            framerate: 20
+    
+        })
+        this.anims.create({
+            key: '2HP',
+            frames: [{key: 'Damage_Sprite', frame :1}],
+            framerate: 20
+    
+        })
+        this.anims.create({
+            key: '1HP',
+            frames: [{key: 'Damage_Sprite', frame :2}],
+            framerate: 20
+    
+        })
 
         const carteTilled_Underground = this.add.tilemap("underground_map_json");
         const tileset = carteTilled_Underground.addTilesetImage(
@@ -30,6 +51,16 @@ class underground_level_01 extends Phaser.Scene {
         this.calque_fond = carteTilled_Underground.createLayer("fond",tileset)
         //this.calque_dirt = carteTilled_Underground.createLayer("dirt",tileset)
         this.calque_mur = carteTilled_Underground.createLayer("mur",tileset);
+
+
+        this.porte = this.physics.add.group({allowGravity : false})
+
+        carteTilled_Underground.getObjectLayer('sortie').objects.forEach((porte) => {
+    
+            console.log(porte)
+            this.porte_overworld = new Porte(porte.x,porte.y-64,'porte',this.porte)
+        });
+        
         
         
 
@@ -64,10 +95,10 @@ class underground_level_01 extends Phaser.Scene {
                 carteTilled_Underground.layers.forEach((layer,index) => {
                     
                     if(layer.name == 'dirt'){
-                        console.log(layer)
+                        //console.log(layer)
                         if(layer.data[y][x].properties.cell_type == 'dirt'){
                             this.dirt_map.Change_cell(x,y,'dirt');
-                            console.log('xd')
+                            //console.log('xd')
                         }
                     }                        
             
@@ -91,8 +122,53 @@ class underground_level_01 extends Phaser.Scene {
             }
 
         }
-        
 
+        this.physics.add.collider(this.player.player_sprite,this.dirt_blocs);
+
+        this.input.on('pointerdown', function PointerDown(pointer){
+
+            pointer_info.screen_x = pointer.x
+            pointer_info.screen_y = pointer.y
+            //console.log("raw  = x :",pointer.x,"|y :",pointer.y);
+            
+
+            pointer_info.clicked = true
+            
+
+            
+
+        });
+
+        this.input.mouse.disableContextMenu();
+
+        this.input.on('pointerup', pointer =>
+        {
+
+            if (pointer.leftButtonReleased())
+            {
+                console.log('Left Button was released');
+                pointer_info.clicked = false
+            }
+            else if (pointer.rightButtonReleased())
+            {
+                console.log('Right Button was released');
+            }
+            else if (pointer.middleButtonReleased())
+            {
+                console.log('Middle Button was released');
+            }
+            else if (pointer.backButtonReleased())
+            {
+                console.log('Back Button was released');
+            }
+            else if (pointer.forwardButtonReleased())
+            {
+                console.log('Forward Button was released');
+            }
+
+        });
+        
+        this.physics.add.overlap(this.player.player_sprite,this.porte_overworld.sprite,PlayerOverlapsOverworldDoor,null,this);
 
         
 
@@ -102,12 +178,45 @@ class underground_level_01 extends Phaser.Scene {
     }
 
     update() { 
+        
+        if(boolean_test == true){
+            console.log(this)
+            boolean_test = false
+        }
 
         this.player_input_dic = UpdatePlayerInput(this.cursors)
 
         this.player.UpdatePlayerMovements(this.player_input_dic)
 
-       
+        if(pointer_info.clicked == true){
+            
+            this.pointer_coord_x = pointer_info.screen_x + this.player.x - 800
+            this.pointer_coord_y = pointer_info.screen_y + this.player.y - 450
+
+            //console.log("player  x :",this.player.x,"|y :",this.player.y)
+            //console.log("adjusted = x :",this.pointer_coord_x,"|y :",this.pointer_coord_y);
+
+            this.pointer_coord_x = (this.pointer_coord_x - this.pointer_coord_x%64)/64
+            this.pointer_coord_y = (this.pointer_coord_y - this.pointer_coord_y%64)/64
+
+            //console.log("calc = x :",this.pointer_coord_x,"|y :",this.pointer_coord_y);
+            if(this.pointer_coord_x>=0 && this.pointer_coord_x <= 48 && this.pointer_coord_y >= 0 && this.pointer_coord_y <= 32){
+                this.dirt_map.map_layers[this.pointer_coord_y][this.pointer_coord_x].was_hit()
+            }
+
+            
+            //Destroy_selected_cell(this.pointer_coord_x,this.pointer_coord_y,this.dirt_map,this.dirt_blocs)
+        }
+        //if(this.pointer)
+
+       updatePlayerInfo(this.player)
+        //pointer_info.clicked = false
+        if(this.cursors.shift.isDown && overworld_door_overlapp){
+            this.scene.run('surface')
+            this.scene.stop()
+        }
+        overworld_door_overlapp = false
+
         
     }
 
@@ -115,8 +224,23 @@ class underground_level_01 extends Phaser.Scene {
     
 };
 
+var boolean_test = false
+
 var test_carte
 var test_dirt_map
+var pointer_info = {
+    clicked : false,
+    screen_x : 0,
+    screen_y : 0
+}
+
+var pointer_ref
+
+function updatePlayerInfo(player){
+
+
+
+}
 
 function getPlayerSpawnPoint(carte){
 
@@ -126,5 +250,15 @@ function getPlayerSpawnPoint(carte){
     }
 
     return spawn_point
+
+}
+
+var overworld_door_overlapp = false
+
+function PlayerOverlapsOverworldDoor(player,door){
+
+    overworld_door_overlapp = true
+
+
 
 }

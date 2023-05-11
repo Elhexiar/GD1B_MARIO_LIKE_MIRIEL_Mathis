@@ -45,9 +45,12 @@ class surface extends Phaser.Scene {
          
 
         
+        carteDuNiveau.getObjectLayer('spawn_point').objects.forEach((spawn) => {
+    
+            this.player = new Player('perso',spawn.x,spawn.y,this,this.calque_sol);
+        });
         
-        
-        this.player = new Player('perso',100,100,this,this.calque_sol);
+        //this.player = new Player('perso',100,100,this,this.calque_sol);
 
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -89,7 +92,8 @@ class surface extends Phaser.Scene {
        
         
         if(this.cursors.shift.isDown && underground_door_overlapp){
-            this.scene.start('underground_level_01')
+            this.scene.run('underground_level_01')
+            this.scene.pause()
         }
 
         underground_door_overlapp = false

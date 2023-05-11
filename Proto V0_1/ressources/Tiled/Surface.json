@@ -13,6 +13,144 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
+         "id":7,
+         "name":"tour",
+         "objects":[
+                {
+                 "class":"",
+                 "height":246,
+                 "id":10,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":160,
+                 "x":858,
+                 "y":444
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":11,
+         "name":"spawn_point",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":11,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2784,
+                 "y":622
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":8,
+         "name":"display",
+         "objects":[
+                {
+                 "class":"",
+                 "gid":216,
+                 "height":64,
+                 "id":7,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":902,
+                 "y":480
+                }, 
+                {
+                 "class":"",
+                 "gid":166,
+                 "height":64,
+                 "id":8,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":902,
+                 "y":417
+                }, 
+                {
+                 "class":"",
+                 "gid":217,
+                 "height":64,
+                 "id":9,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":64,
+                 "x":887,
+                 "y":460
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "chunks":[
+                {
+                 "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 13, 14,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 62, 63, 64,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 113, 114,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 162, 163, 164,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 212, 213, 214,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 "height":16,
+                 "width":16,
+                 "x":0,
+                 "y":0
+                }],
+         "height":16,
+         "id":10,
+         "name":"diplay",
+         "opacity":1,
+         "startx":0,
+         "starty":0,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":9,
+         "image":"",
+         "name":"display",
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "chunks":[
                 {
                  "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -183,20 +321,20 @@
                  "x":48,
                  "y":0
                 }],
-         "height":32,
+         "height":16,
          "id":5,
          "name":"porte_yep",
          "opacity":1,
          "startx":32,
-         "starty":-16,
+         "starty":0,
          "type":"tilelayer",
          "visible":true,
          "width":32,
          "x":0,
          "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":6,
+ "nextlayerid":12,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

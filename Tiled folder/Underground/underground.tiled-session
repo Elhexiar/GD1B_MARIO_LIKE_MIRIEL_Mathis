@@ -6,9 +6,32 @@
     "activeFile": "",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
         "#underground tuile": {
             "scaleInEditor": 1
+        },
+        "D:/MIRIEL Mathis/GD1B_MARIO_LIKE_MIRIEL_Mathis/Tiled folder/Surface/Surface.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 731,
+                "y": 541
+            }
+        },
+        "D:/MIRIEL Mathis/GD1B_MARIO_LIKE_MIRIEL_Mathis/Tiled folder/Surface/Surface.tmx#tileset surface": {
+            "scaleInDock": 0.33
+        },
+        "underground_level_0_tilled_map.tmx": {
+            "scale": 0.269970703125,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1224.2069090251402,
+                "y": 1024.1852052812446
+            }
+        },
+        "underground_level_0_tilled_map.tmx#underground tuile": {
+            "scaleInDock": 1
         }
     },
     "last.exportedFilePath": "D:/MIRIEL Mathis/GD1B_MARIO_LIKE_MIRIEL_Mathis/Proto V0_1/ressources/Tiled",

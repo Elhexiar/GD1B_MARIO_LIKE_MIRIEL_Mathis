@@ -1,9 +1,10 @@
 class Cell_Map {
-    constructor (width,height,pixel_size,tilled_map,physics_group) {
+    constructor (width,height,pixel_size,tilled_map,physics_group_ref) {
 
         this.referenced_tilled_map = tilled_map;
         this.map_width = width;
         this.map_height = height;
+        this.physics_group = physics_group_ref
         
         this.pixel_cell_size = pixel_size;
         
@@ -17,7 +18,7 @@ class Cell_Map {
             this.map_layers[y] = [];
             for(let x = 0 ; x < width ; x++){
 
-                this.map_layers[y][x] = new Cell(y,x,this.pixel_cell_size,'air');
+                this.map_layers[y][x] = new Cell(y,x,this.pixel_cell_size,'air',this.physics_group,this);
 
                 console.log("y:",y,"|x:",x)
 
@@ -45,7 +46,7 @@ class Cell_Map {
 
 class Cell {
 
-    constructor (y,x,pixel_size,type){
+    constructor (y,x,pixel_size,type,physics_group_ref,map_ref){
 
         this.x_map = x;
         this.y_map = y;
@@ -54,6 +55,8 @@ class Cell {
         this.cell_type = new Cell_Type(type)
         this.cell_sprite = 'none'
         this.damage_sprite = "undamaged"
+        this.physics_group = physics_group_ref
+        this.main_map = map_ref
 
         
     }
@@ -61,6 +64,30 @@ class Cell {
     was_hit(){
         if(this.cell_type.is_mineable == true){
             
+            console.log(this)
+            this.cell_type.hp = this.cell_type.hp-1
+            //console.log(this)
+            
+            if(this.cell_type.hp <= 0){
+                
+                this.damage_sprite.destroy()
+                Destroy_selected_cell(this.x_map,this.y_map,this.main_map,this.physics_group)
+            }
+            if(this.cell_type.hp == 10){
+
+                this.damage_sprite.anims.play('1HP')
+                
+            }
+            if(this.cell_type.hp == 20){
+
+                this.damage_sprite.anims.play('2HP')
+
+            }
+            if(this.cell_type.hp == 29){
+                this.damage_sprite = this.physics_group.create(this.x_pixel_coord+32,this.y_pixel_coord+32,'Damage_Sprite').setDepth(5).setImmovable(true)
+                //this.damage_sprite.anims.play('3HP')
+                
+            }
         }
 
     }
@@ -85,7 +112,7 @@ class Cell_Type {
             this.texture = 'dirt.png';
             this.drop = item_dirt_drop;
             this.is_mineable = true;
-            this.hp = 3;
+            this.hp = 30;
         }else
         if(type == 'air'){
             this.name = 'air'
@@ -109,7 +136,7 @@ class Cell_Type {
             this.texture = 'dirt.png';
             this.drop = item_dirt_drop;
             this.is_mineable = true;
-            this.hp = 3;
+            this.hp = 30;
         }
         if(type == 'air'){
             this.name = 'air'
@@ -261,3 +288,101 @@ var blob_sprites = {
     down_alone : "blob 11",
 
 };
+
+function Destroy_selected_cell(x,y,main_map,physics_bloc){
+
+    
+    main_map.Change_cell(x,y,'air');
+
+    if(main_map.map_layers[y][x].cell_sprite != 'none' && x>=0 && x <= 48 && y >= 0 && y <= 32){
+        console.log("destroying cell, x:",x,"|y:",y)
+        main_map.map_layers[y][x].cell_sprite.destroy()
+        Update_adjacent_sprites(x,y,main_map,physics_bloc)
+    
+        if(y+1 < 32 && y-1 > 0){
+            if(main_map.map_layers[y-1][x].cell_type.name == 'dirt'){
+            Update_adjacent_sprites(x,y-1,main_map,physics_bloc)
+            }
+            if(main_map.map_layers[y+1][x].cell_type.name == 'dirt'){
+            Update_adjacent_sprites(x,y+1,main_map,physics_bloc)
+            }
+        }
+        if(x+1 < 48 && y-1 > 0){
+            if(main_map.map_layers[y][x-1].cell_type.name == 'dirt'){
+            Update_adjacent_sprites(x-1,y,main_map,physics_bloc)
+            }
+            if(main_map.map_layers[y][x+1].cell_type.name == 'dirt'){
+            Update_adjacent_sprites(x+1,y,main_map,physics_bloc)
+            }
+        }
+    }
+
+    
+
+
+};
+
+function Update_adjacent_sprites(x,y,main_map,physics_bloc){
+
+    console.log("enter Update")
+
+    
+        if(y>0 && y <main_map.map_height){
+            console.log("in range y")
+            //above
+            if(main_map.map_layers[y-1][x].cell_sprite != 'none' && main_map.map_layers[y-1][x].cell_type.name == 'dirt'){
+                console.log('update above')
+                this.current_sprite = main_map.map_layers[y-1][x].cell_sprite.texture.key
+                this.new_sprite = Adapt_sprite(x,y-1,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    main_map.map_layers[y-1][x].cell_sprite.destroy()
+                    main_map.map_layers[y-1][x].cell_sprite = physics_bloc.create(x*64+32,(y-1)*64+32,this.new_sprite).setImmovable(true);
+                }
+
+            }
+        
+            //under
+            if(main_map.map_layers[y+1][x].cell_sprite != 'none' && main_map.map_layers[y+1][x].cell_type.name == 'dirt'){
+                console.log('update under')
+                this.current_sprite = main_map.map_layers[y+1][x].cell_sprite.texture.key
+                this.new_sprite = Adapt_sprite(x,y+1,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    main_map.map_layers[y+1][x].cell_sprite.destroy()
+                    main_map.map_layers[y+1][x].cell_sprite = physics_bloc.create(x*64+32,(y+1)*64+32,this.new_sprite).setImmovable(true);
+                }
+                
+            }
+        }
+        
+
+        if(x > 0 && y < main_map.map_width){
+            //to the right
+            console.log("in range x")
+            if(main_map.map_layers[y][x+1].cell_sprite != 'none' && main_map.map_layers[y][x+1].cell_type.name == 'dirt'){
+                console.log('update right')
+                this.current_sprite = main_map.map_layers[y][x+1].cell_sprite.texture.key
+                this.new_sprite = Adapt_sprite(x+1,y,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    main_map.map_layers[y][x+1].cell_sprite.destroy()
+                    main_map.map_layers[y][x+1].cell_sprite = physics_bloc.create((x+1)*64+32,y*64+32,this.new_sprite).setImmovable(true);
+                }
+            }
+
+            //to the left
+            if(main_map.map_layers[y][x-1].cell_sprite != 'none' && main_map.map_layers[y][x-1].cell_type.name == 'dirt'){
+                console.log('update left')
+                this.current_sprite = main_map.map_layers[y][x-1].cell_sprite.texture.key
+                this.new_sprite = Adapt_sprite(x-1,y,main_map.map_layers)
+
+                if(this.current_sprite != this.new_sprite){
+                    main_map.map_layers[y][x-1].cell_sprite.destroy()
+                    main_map.map_layers[y][x-1].cell_sprite = physics_bloc.create((x-1)*64+32,y*64+32,this.new_sprite).setImmovable(true);
+                }
+            }
+        }
+    
+
+}
