@@ -53,11 +53,15 @@ class Cell {
         this.y_pixel_coord = y*pixel_size;
         this.cell_type = new Cell_Type(type)
         this.cell_sprite = 'none'
+        this.damage_sprite = "undamaged"
 
         
     }
 
     was_hit(){
+        if(this.cell_type.is_mineable == true){
+            
+        }
 
     }
     
@@ -137,7 +141,7 @@ function x_from_map(chosen_x,chosen_y,carte){
     if(chosen_x>0 && chosen_x<48 && chosen_y > 0 && chosen_y < 32){
         return carte[chosen_y][chosen_x].cell_type
     }else{
-        return true
+        return false
     }
 
 
@@ -158,22 +162,22 @@ function Adapt_sprite(current_x,current_y,Carte_Object){
     down = false;
     left = false;
     //if there is blob up
-    if(x_from_map(current_x,current_y-1,Carte_Object).name == 'dirt' ||x_from_map(current_x,current_y-1,Carte_Object) == true){
+    if(x_from_map(current_x,current_y-1,Carte_Object).name == 'dirt' ||x_from_map(current_x,current_y-1,Carte_Object) == false){
         //console.log("up");
         up = true
     }
     //if there is blob right
-    if(x_from_map(current_x+1,current_y,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == true){
+    if(x_from_map(current_x+1,current_y,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == false){
         //console.log("right");
         right = true
     }
     //if there is blob down
-    if(x_from_map(current_x,current_y+1,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == true){
+    if(x_from_map(current_x,current_y+1,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == false){
         //console.log("down");
         down = true
     }
     //if there is blob left
-    if(x_from_map(current_x-1,current_y,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == true){
+    if(x_from_map(current_x-1,current_y,Carte_Object).name == 'dirt'||x_from_map(current_x,current_y-1,Carte_Object) == false){
         //console.log("left");
         left = true
     }
