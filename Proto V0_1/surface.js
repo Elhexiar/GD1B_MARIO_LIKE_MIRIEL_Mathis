@@ -9,6 +9,10 @@ class surface extends Phaser.Scene {
         this.load.tilemapTiledJSON("carte", "ressources/Tiled/Surface.json");
         this.load.image("temp bg", "ressources/Tiled/surface temp bg.png")
         this.load.image("porte", "ressources/assets/porte.png")
+        this.load.image("tower",'ressources/assets/tour.png')
+        this.load.image("archer",'ressources/assets/archer.png')
+        this.load.spritesheet("ennemie", "ressources/assets/ennemie-Sheet.png",
+                { frameWidth: 128, frameHeight: 64 });
 
         this.load.spritesheet('perso','ressources/assets/perso.png',
                 { frameWidth: 22, frameHeight: 28 });
@@ -19,6 +23,8 @@ class surface extends Phaser.Scene {
         
     }
     create() {
+
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
 
         this.background = this.add.image(WORLD_DIMENSION.width/2,WORLD_DIMENSION.height/2,'temp bg');
         const carteDuNiveau = this.add.tilemap("carte");
@@ -36,7 +42,7 @@ class surface extends Phaser.Scene {
 
         carteDuNiveau.getObjectLayer('porte').objects.forEach((porte) => {
     
-            console.log(porte)
+            //console.log(porte)
             this.porte_to_underground = new Porte(porte.x,porte.y-64,'porte',this.porte)
         });
 
@@ -49,6 +55,22 @@ class surface extends Phaser.Scene {
     
             this.player = new Player('perso',spawn.x,spawn.y,this,this.calque_sol);
         });
+
+        this.structure = this.physics.add.group({allowGravity : true})
+
+        this.tower = []
+        carteDuNiveau.getObjectLayer('tour').objects.forEach((tower_from_tilled,i) => {
+    
+            this.tower[i] = new Tower_archer(tower_from_tilled,this.structure,this)
+            this.tower[i].Build_Tower();
+
+            this.tower[i].SpawnArcher();
+            this.physics.add.collider(this.structure,this.tower[i].hitbox)
+        });
+
+        this.ennemie_list = [];
+
+        
         
         //this.player = new Player('perso',100,100,this,this.calque_sol);
 
@@ -56,6 +78,8 @@ class surface extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.physics.add.collider(this.player.player_sprite,this.calque_sol);
+        this.physics.add.collider(this.structure,this.calque_sol);
+        
         //this.physics.add.collider(this.player.player_sprite,this.test);
 
 
@@ -77,10 +101,50 @@ class surface extends Phaser.Scene {
 
         this.player.player_sprite.setCollideWorldBounds() 
 
+        ennemie_list_ref = this.ennemie_list
+        tower_ref = this.tower
+        scene_ref = this
+
 
     }
 
     update() { 
+
+        this.graphics.clear();
+        
+        this.tower.forEach((tower) => {
+
+            if(ennemie_number==0){
+    
+            if(Phaser.Math.Distance.Between(tower.x,tower.y,this.player.x,this.player.y)<=tower.range){
+                //console.log('inside')
+                this.graphics.lineStyle(2,0x00ff00);
+            }else{
+                //console.log('outside',Phaser.Math.Distance.Between(tower.x,tower.y,this.player.x,this.player.y));
+                this.graphics.lineStyle(2,0x0000ff);
+            }
+
+            }else{
+
+                this.graphics.lineStyle(2,0x0000ff);
+                this.ennemie_list.forEach((ennemie) => {
+                    if(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,ennemie.y)<=tower.range){
+                        //console.log('inside')
+                        this.graphics.lineStyle(2,0x00ff00);
+                    }
+
+                })
+                
+            }
+    
+            
+    
+            this.graphics.strokeCircleShape(tower.hitbox_range).setDepth(5);
+    
+            tower.archer.UpdateArcherPos()
+        });
+
+        
 
         this.player_input_dic = UpdatePlayerInput(this.cursors)
 
@@ -97,6 +161,8 @@ class surface extends Phaser.Scene {
         }
 
         underground_door_overlapp = false
+
+        
     }
 
    
@@ -134,8 +200,12 @@ function UpdatePlayerInput(cursor){
 var test_player
 var test_porte 
 var underground_door_overlapp = false
+var tower_ref
+var ennemie_list_ref
 
 var test_var
+var scene_ref
+var ennemie_number = 0
 
 var CAMERA_OFFSET = 400
 

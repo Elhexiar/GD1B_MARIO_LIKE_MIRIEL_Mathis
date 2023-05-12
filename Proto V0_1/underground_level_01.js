@@ -127,13 +127,20 @@ class underground_level_01 extends Phaser.Scene {
 
         this.input.on('pointerdown', function PointerDown(pointer){
 
-            pointer_info.screen_x = pointer.x
-            pointer_info.screen_y = pointer.y
             //console.log("raw  = x :",pointer.x,"|y :",pointer.y);
             
 
             pointer_info.clicked = true
             
+
+            
+
+        });
+        this.input.on('pointermove', function PointerDown(pointer){
+
+            pointer_info.screen_x = pointer.x
+            pointer_info.screen_y = pointer.y
+            //console.log("raw  = x :",pointer.x,"|y :",pointer.y);
 
             
 
@@ -152,6 +159,7 @@ class underground_level_01 extends Phaser.Scene {
             else if (pointer.rightButtonReleased())
             {
                 console.log('Right Button was released');
+                pointer_info.clicked = false
             }
             else if (pointer.middleButtonReleased())
             {
