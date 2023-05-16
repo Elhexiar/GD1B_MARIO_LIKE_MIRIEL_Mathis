@@ -16,6 +16,7 @@ class surface extends Phaser.Scene {
 
         this.load.spritesheet('perso','ressources/assets/perso.png',
                 { frameWidth: 22, frameHeight: 28 });
+        this.load.image("projectile", "ressources/assets/projectile.png")
         
 
 
@@ -47,7 +48,7 @@ class surface extends Phaser.Scene {
         });
 
         
-
+        this.underground_was_generated = false
          
 
         
@@ -58,14 +59,18 @@ class surface extends Phaser.Scene {
 
         this.structure = this.physics.add.group({allowGravity : true})
 
-        this.tower = []
+        
+
+        this.projectile_physic_group = this.physics.add.group({allowGravity : false})
+        this.towers = new TowerManager(this.projectile_physic_group)
+
         carteDuNiveau.getObjectLayer('tour').objects.forEach((tower_from_tilled,i) => {
     
-            this.tower[i] = new Tower_archer(tower_from_tilled,this.structure,this)
-            this.tower[i].Build_Tower();
+            this.towers.addNewTower(tower_from_tilled,this.structure,this)
+            this.towers.tower_list[i].Build_Tower();
 
-            this.tower[i].SpawnArcher();
-            this.physics.add.collider(this.structure,this.tower[i].hitbox)
+            this.towers.tower_list[i].SpawnArcher();
+            this.physics.add.collider(this.structure,this.towers.tower_list[i].hitbox)
         });
 
         this.ennemie_list = [];
@@ -79,6 +84,8 @@ class surface extends Phaser.Scene {
 
         this.physics.add.collider(this.player.player_sprite,this.calque_sol);
         this.physics.add.collider(this.structure,this.calque_sol);
+
+        this.physics.add.overlap(this.ennemie_phy,this.projectile_physic_group, EnnemieWasHit,null,this)
         
         //this.physics.add.collider(this.player.player_sprite,this.test);
 
@@ -101,7 +108,21 @@ class surface extends Phaser.Scene {
 
         this.player.player_sprite.setCollideWorldBounds() 
 
-        ennemie_list_ref = this.ennemie_list
+        this.ennemie_phy = this.physics.add.group({allowGravity : true})
+
+        this.physics.add.collider(this.ennemie_phy,this.calque_sol);
+        this.physics.add.collider(this.ennemie_phy,this.ennemie_phy);
+
+        this.towers.tower_list.forEach((tower,i) => {
+            this.physics.add.collider(this.ennemie_phy,tower.hitbox);
+        });
+
+        
+        
+
+        this.EnnemieManager = new EnnemieManager(this,this.ennemie_phy)
+
+        ennemie_ref = this.EnnemieManager
         tower_ref = this.tower
         scene_ref = this
 
@@ -110,27 +131,38 @@ class surface extends Phaser.Scene {
 
     update() { 
 
+
+
         this.graphics.clear();
         
-        this.tower.forEach((tower) => {
+        this.towers.tower_list.forEach((tower) => {
 
             if(ennemie_number==0){
     
             if(Phaser.Math.Distance.Between(tower.x,tower.y,this.player.x,this.player.y)<=tower.range){
                 //console.log('inside')
                 this.graphics.lineStyle(2,0x00ff00);
+                //tower.active = true
             }else{
                 //console.log('outside',Phaser.Math.Distance.Between(tower.x,tower.y,this.player.x,this.player.y));
                 this.graphics.lineStyle(2,0x0000ff);
+                //tower.active = false
             }
 
             }else{
 
                 this.graphics.lineStyle(2,0x0000ff);
-                this.ennemie_list.forEach((ennemie) => {
+                this.EnnemieManager.list_of_ennemies.forEach((ennemie) => {
                     if(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,ennemie.y)<=tower.range){
+
+                        //console.log('actif')
+                        tower.towerTarget_x = ennemie.x
+                        tower.towerTarget_y = ennemie.y
+                        tower.active = true
                         //console.log('inside')
                         this.graphics.lineStyle(2,0x00ff00);
+                    }else{
+                        tower.active = false
                     }
 
                 })
@@ -156,12 +188,21 @@ class surface extends Phaser.Scene {
        
         
         if(this.cursors.shift.isDown && underground_door_overlapp){
-            this.scene.run('underground_level_01')
-            this.scene.pause()
+
+            
+                this.underground_was_generated = true
+                this.scene.run('underground_level_01')
+                this.scene.sleep()
+            
+            
         }
 
         underground_door_overlapp = false
 
+        this.EnnemieManager.UpdateBehaviour();
+        this.towers.UpdateTowers()
+
+        
         
     }
 
@@ -201,7 +242,7 @@ var test_player
 var test_porte 
 var underground_door_overlapp = false
 var tower_ref
-var ennemie_list_ref
+var ennemie_ref
 
 var test_var
 var scene_ref
@@ -219,5 +260,17 @@ function PlayerOverlapsUndergroundDoor(scene){
     underground_door_overlapp = true
 
     
+
+}
+
+
+
+function EnnemieWasHit(a,b,c,d){
+
+    console.log('a',a)
+    console.log('b',b)
+    console.log('c',c)
+    console.log('d',d)
+
 
 }

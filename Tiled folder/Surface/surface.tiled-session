@@ -3,10 +3,21 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Surface.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "Surface.tmx": {
+            "scale": 0.42142333984374997,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1894.769284245286,
+                "y": 379.66573009298145
+            }
+        },
+        "Surface.tmx#tileset surface": {
+            "scaleInDock": 1
+        }
     },
     "last.exportedFilePath": "D:/MIRIEL Mathis/GD1B_MARIO_LIKE_MIRIEL_Mathis/Proto V0_1/ressources/Tiled",
     "last.imagePath": "D:/MIRIEL Mathis/GD1B_MARIO_LIKE_MIRIEL_Mathis/Tiled folder/Surface",
@@ -16,10 +27,12 @@
     "map.tileHeight": 64,
     "map.tileWidth": 64,
     "openFiles": [
+        "Surface.tmx"
     ],
     "project": "surface.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "Surface.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {

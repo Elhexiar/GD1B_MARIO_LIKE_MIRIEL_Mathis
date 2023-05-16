@@ -1,7 +1,7 @@
 var player_config = {
     HP : 3,
     speed : 500,
-    jumpForce : 800,
+    jumpForce : 400,
 }
 
 class Player {

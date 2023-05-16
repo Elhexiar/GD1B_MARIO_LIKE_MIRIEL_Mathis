@@ -186,7 +186,7 @@ class underground_level_01 extends Phaser.Scene {
     }
 
     update() { 
-        
+
         if(boolean_test == true){
             console.log(this)
             boolean_test = false
@@ -221,7 +221,8 @@ class underground_level_01 extends Phaser.Scene {
         //pointer_info.clicked = false
         if(this.cursors.shift.isDown && overworld_door_overlapp){
             this.scene.run('surface')
-            this.scene.stop()
+            this.scene.sleep()
+            
         }
         overworld_door_overlapp = false
 
