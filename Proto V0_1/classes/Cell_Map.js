@@ -73,17 +73,17 @@ class Cell {
                 this.damage_sprite.destroy()
                 Destroy_selected_cell(this.x_map,this.y_map,this.main_map,this.physics_group)
             }
-            if(this.cell_type.hp == 10){
+            if(this.cell_type.hp == 5){
 
                 this.damage_sprite.anims.play('1HP')
                 
             }
-            if(this.cell_type.hp == 20){
+            if(this.cell_type.hp == 10){
 
                 this.damage_sprite.anims.play('2HP')
 
             }
-            if(this.cell_type.hp == 29){
+            if(this.cell_type.hp == 14){
                 this.damage_sprite = this.physics_group.create(this.x_pixel_coord+32,this.y_pixel_coord+32,'Damage_Sprite').setDepth(5).setImmovable(true)
                 //this.damage_sprite.anims.play('3HP')
                 
@@ -112,7 +112,7 @@ class Cell_Type {
             this.texture = 'dirt.png';
             this.drop = item_dirt_drop;
             this.is_mineable = true;
-            this.hp = 30;
+            this.hp = 15;
         }else
         if(type == 'air'){
             this.name = 'air'
@@ -136,7 +136,7 @@ class Cell_Type {
             this.texture = 'dirt.png';
             this.drop = item_dirt_drop;
             this.is_mineable = true;
-            this.hp = 30;
+            this.hp = 15;
         }
         if(type == 'air'){
             this.name = 'air'

@@ -41,14 +41,19 @@ class Tower_archer {
         this.hitbox = 'none'
         this.scene = scene
         this.archer = 'none'
-        this.range = 500
+        this.range = 800
         this.projectile_physics_group = projectile_group
         this.justShot = false
-        this.cooldown = 2000
+        this.cooldown = 500
         this.projectile_array = []
+        this.hp = 20
+        this.destroyed = false
+        this.ammo_storage = new AmmoStorage(this.x,this.y,this)
 
-        this.towerTarget_x = 0
-        this.towerTarget_y = 0
+        this.ammo = 60
+
+        this.towerTarget_x = 5000
+        this.towerTarget_y = 5000
 
         //this.circle_hitbox_range_physics_group = this.scene.physics.add.group({allowGravity : false})
         this.hitbox_range = this.scene.add.circle(this.x,this.y,this.range)
@@ -56,7 +61,8 @@ class Tower_archer {
         //this.scene.physics.add.existing(this.hitbox_range,true)
 
 
-        console.log(this.circle)
+
+        //console.log(this.circle)
 
 
     }
@@ -66,9 +72,10 @@ class Tower_archer {
     Build_Tower(){
 
         this.sprite = this.physics_group.create(this.x,this.y,'tower').setImmovable(true)
-        console.log(this.tilled_ref)
+        //console.log(this.tilled_ref)
         this.hitbox = this.scene.add.rectangle(this.tilled_ref.x,this.tilled_ref.y+this.tilled_ref.height/2 , this.tilled_ref.width, this.tilled_ref.height);
         this.scene.physics.add.existing(this.hitbox,true)
+        this.hitbox.tower_ref = this
         //console.log(this.hitbox)
 
     }
@@ -83,12 +90,26 @@ class Tower_archer {
 
         if(this.active == true){
 
+            this.archer.sprite.anims.play('active_archer')
+
             if(this.justShot == false){
 
-                this.projectile_array.push(new projectile_archer(this.x,this.y,this.towerTarget_x,this.towerTarget_y,this.projectile_physics_group,this.scene))
+                if(this.ammo > 0){
+                this.projectile_array.push(new projectile_archer(this.x,this.y,this.towerTarget_x,this.towerTarget_y,this.projectile_physics_group,this.scene,this))
+                
                 this.justShot = true
-                console.log('piou')
+                this.ammo = this.ammo-1
+                if(this.ammo < 0){
+                    this.ammo = 0
+                }
+
+                this.ammo_storage.UpdateAmmoStorage()
+                //console.log('piou')
                 this.scene.time.delayedCall(this.cooldown,() => { this.justShot =  false },null,this)
+                }else{
+                    console.log("tower out of ammo !")
+                }
+                
 
             }
 
@@ -99,9 +120,42 @@ class Tower_archer {
 
             
             
+        }else{
+
+            if(this.destroyed == false){
+            this.archer.sprite.anims.play('inactive_archer')
+            this.towerTarget_x = 5000
+            this.towerTarget_y = 5000
+            }
+
         }
 
+        this.archer.UpdateArcher()
 
+
+
+    }
+
+    kill(){
+
+        this.sprite.destroy()
+        this.active = false
+        this.hitbox.destroy()
+        this.archer.sprite.destroy()
+        this.destroyed = true
+        this.range = 0
+
+        this.archer.bow.kill()
+
+    }
+
+    reFillAmmo(amount){
+
+        this.ammo = this.ammo + amount
+        if(this.ammo >60){
+            this.ammo = 60
+        }
+        this.ammo_storage.UpdateAmmoStorage()
 
     }
 
@@ -123,10 +177,11 @@ class Archer {
 
         this.x = given_x
         this.y = given_y
+        this.tower_ref = tower
         
         this.physics_group = given_physics
         this.sprite = this.physics_group.create(this.x,this.y,'archer')
-        //this.bow = new Bow()
+        this.bow = new Bow(this.x,this.y,this,this.tower_ref)
         this.target = 'none'
     }
 
@@ -135,18 +190,53 @@ class Archer {
         this.y = this.sprite.y
     }
 
+    UpdateArcher(){
+
+        //console.log('archer_update')
+
+        this.bow.UpdateBow()
+
+    }
+
 
 }
 
 class Bow {
 
-    constructor(given_x,given_y,given_physics){
+    constructor(given_x,given_y,archer_ref,tower_ref){
 
-        this.x = given_x
+        this.x = given_x-20
         this.y = given_y
-        this.sprite = 'none'
-        this.physics_group = given_physics
+        this.tower_ref = tower_ref
+        this.archer_ref = archer_ref
+        
+        this.physics_group = prop_phys_group
+        this.sprite = this.physics_group.create(this.x,this.y,'bow')
         this.angle = 0
+
+    }
+
+    UpdateBow(){
+
+
+        this.x = this.archer_ref.x -20
+        this.y = this.archer_ref.y
+
+        this.sprite.x = this.x
+        this.sprite.y = this.y
+
+        this.angle_offset = 200
+
+        //console.log("angle before ",this.angle)
+        this.angle = (Phaser.Math.Angle.Between(this.x,this.y,this.tower_ref.towerTarget_x,this.tower_ref.towerTarget_y)*180/3.28) + this.angle_offset
+        this.sprite.angle = this.angle
+        //console.log("angle after ",this.angle)
+
+    }
+
+    kill(){
+
+        this.sprite.destroy()
 
     }
 
@@ -155,15 +245,17 @@ class Bow {
 
 class projectile_archer {
 
-    constructor(given_x,given_y,target_x,target_y,physics_group,scene){
+    constructor(given_x,given_y,target_x,target_y,physics_group,scene,ref_tower){
 
         this.x = given_x
         this.y = given_y
         this.speed = 800
+        this.damage = 1
 
         this.physics_group = physics_group
 
         this.sprite = this.physics_group.create(this.x,this.y,'projectile')
+        this.sprite.bullet_ref = this
         this.target_vector = new Phaser.Math.Vector2(target_x-this.x,target_y-this.y)
         //console.log(this.target_vector)
         this.target_vector.normalize()
@@ -174,10 +266,41 @@ class projectile_archer {
 
     }
 
+    kill(){
+
+        this.sprite.destroy()
+
+    }
+
 
 }
 
 function resetShot(){
     this.justShot = false
     console.log('reloaded',just_shot)
+}
+
+class AmmoStorage {
+    
+    constructor(tower_x,tower_y,tower_ref){
+
+        this.x_offset = 50
+        this.y_offset = 100
+        this.x = tower_x+this.x_offset
+        this.y = tower_y+this.y_offset
+        this.tower_ref = tower_ref
+
+        this.sprite = prop_phys_group.create(this.x,this.y,'ammo_storage').setDepth(8)
+        this.sprite.anims.play('6_ammo')
+
+    }
+
+    UpdateAmmoStorage(){
+
+        
+        this.ammo_range = (this.tower_ref.ammo-this.tower_ref.ammo % 10)/ 10
+
+        this.sprite.anims.play((this.ammo_range+'_ammo'))
+    }
+
 }

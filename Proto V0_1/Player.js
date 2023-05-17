@@ -1,6 +1,6 @@
 var player_config = {
     HP : 3,
-    speed : 500,
+    speed : 900,
     jumpForce : 400,
 }
 
@@ -35,6 +35,7 @@ class Player {
         //generation du sprite du joueur
         this.player_sprite = GeneratePlayerSprite(spriteSheet,this.scene,this);
 
+        this.player_sprite.player_ref = this
 
     }
 
