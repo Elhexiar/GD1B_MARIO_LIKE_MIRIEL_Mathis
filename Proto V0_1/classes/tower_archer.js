@@ -57,7 +57,7 @@ class Tower_archer {
 
         //this.circle_hitbox_range_physics_group = this.scene.physics.add.group({allowGravity : false})
         this.hitbox_range = this.scene.add.circle(this.x,this.y,this.range)
-        console.log('cercle :',this.hitbox_range)
+        //console.log('cercle :',this.hitbox_range)
         //this.scene.physics.add.existing(this.hitbox_range,true)
 
 
@@ -149,11 +149,15 @@ class Tower_archer {
 
     }
 
-    reFillAmmo(amount){
+    reFillAmmo(player){
 
-        this.ammo = this.ammo + amount
+        this.ammo = this.ammo + player.ammo
         if(this.ammo >60){
+
+            player.ammo = this.ammo-60
             this.ammo = 60
+        }else{
+            player.ammo = 0
         }
         this.ammo_storage.UpdateAmmoStorage()
 

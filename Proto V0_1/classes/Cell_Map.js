@@ -20,7 +20,7 @@ class Cell_Map {
 
                 this.map_layers[y][x] = new Cell(y,x,this.pixel_cell_size,'air',this.physics_group,this);
 
-                console.log("y:",y,"|x:",x)
+                //console.log("y:",y,"|x:",x)
 
                 
 
@@ -61,10 +61,10 @@ class Cell {
         
     }
 
-    was_hit(){
+    was_hit(player){
         if(this.cell_type.is_mineable == true){
             
-            console.log(this)
+            //console.log(this)
             this.cell_type.hp = this.cell_type.hp-1
             //console.log(this)
             
@@ -72,6 +72,12 @@ class Cell {
                 
                 this.damage_sprite.destroy()
                 Destroy_selected_cell(this.x_map,this.y_map,this.main_map,this.physics_group)
+                player.ammo = player.ammo +1
+
+                console.log("ammo =",player.ammo)
+                if(player.ammo > player.carrying_capacity){
+                    player.ammo = player.carrying_capacity
+                }
             }
             if(this.cell_type.hp == 5){
 
@@ -295,7 +301,7 @@ function Destroy_selected_cell(x,y,main_map,physics_bloc){
     main_map.Change_cell(x,y,'air');
 
     if(main_map.map_layers[y][x].cell_sprite != 'none' && x>=0 && x <= 48 && y >= 0 && y <= 32){
-        console.log("destroying cell, x:",x,"|y:",y)
+        //console.log("destroying cell, x:",x,"|y:",y)
         main_map.map_layers[y][x].cell_sprite.destroy()
         Update_adjacent_sprites(x,y,main_map,physics_bloc)
     
@@ -324,14 +330,14 @@ function Destroy_selected_cell(x,y,main_map,physics_bloc){
 
 function Update_adjacent_sprites(x,y,main_map,physics_bloc){
 
-    console.log("enter Update")
+    //console.log("enter Update")
 
     
         if(y>0 && y <main_map.map_height){
-            console.log("in range y")
+            //console.log("in range y")
             //above
             if(main_map.map_layers[y-1][x].cell_sprite != 'none' && main_map.map_layers[y-1][x].cell_type.name == 'dirt'){
-                console.log('update above')
+                //console.log('update above')
                 this.current_sprite = main_map.map_layers[y-1][x].cell_sprite.texture.key
                 this.new_sprite = Adapt_sprite(x,y-1,main_map.map_layers)
 
@@ -344,7 +350,7 @@ function Update_adjacent_sprites(x,y,main_map,physics_bloc){
         
             //under
             if(main_map.map_layers[y+1][x].cell_sprite != 'none' && main_map.map_layers[y+1][x].cell_type.name == 'dirt'){
-                console.log('update under')
+                //console.log('update under')
                 this.current_sprite = main_map.map_layers[y+1][x].cell_sprite.texture.key
                 this.new_sprite = Adapt_sprite(x,y+1,main_map.map_layers)
 
@@ -359,9 +365,9 @@ function Update_adjacent_sprites(x,y,main_map,physics_bloc){
 
         if(x > 0 && y < main_map.map_width){
             //to the right
-            console.log("in range x")
+            //console.log("in range x")
             if(main_map.map_layers[y][x+1].cell_sprite != 'none' && main_map.map_layers[y][x+1].cell_type.name == 'dirt'){
-                console.log('update right')
+                //console.log('update right')
                 this.current_sprite = main_map.map_layers[y][x+1].cell_sprite.texture.key
                 this.new_sprite = Adapt_sprite(x+1,y,main_map.map_layers)
 
@@ -373,7 +379,7 @@ function Update_adjacent_sprites(x,y,main_map,physics_bloc){
 
             //to the left
             if(main_map.map_layers[y][x-1].cell_sprite != 'none' && main_map.map_layers[y][x-1].cell_type.name == 'dirt'){
-                console.log('update left')
+                //console.log('update left')
                 this.current_sprite = main_map.map_layers[y][x-1].cell_sprite.texture.key
                 this.new_sprite = Adapt_sprite(x-1,y,main_map.map_layers)
 

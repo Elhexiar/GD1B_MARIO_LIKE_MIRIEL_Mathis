@@ -7,6 +7,7 @@ class EnnemieManager {
         this.intensity = 0
         this.scene = scene
         this.physics_group = physics_group
+        this.wave_counter = 0
 
 
     }
@@ -19,6 +20,14 @@ class EnnemieManager {
     }
 
     SpawnWave(){
+
+        this.wave_counter +=1
+
+        this.intensity = this.wave_counter*3
+
+        for(let i = 0; i < this.intensity; i++){
+            this.spawnSingleEnnemie((-i*70)-400,100)
+        }
 
     }
 
@@ -103,7 +112,13 @@ class Ennemie {
         if(this.hp <=0){
             this.sprite.destroy()
             delete this.manager_ref.list_of_ennemies[this.index]
-            ennemie_number = ennemie_number -1
+            ennemie_number = 0
+            this.manager_ref.list_of_ennemies.forEach(element => {
+                if(element != null){
+                    ennemie_number = ennemie_number +1
+                }
+            });
+            
         }
 
     }

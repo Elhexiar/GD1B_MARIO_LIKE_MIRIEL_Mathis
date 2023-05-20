@@ -3,6 +3,11 @@ class surface extends Phaser.Scene {
 
         super("surface");
     }
+    init(data){
+
+        console.log('initialisation scene Surface avec data :',data)
+
+    }
     preload() {
 
         this.load.image("Tileset_Surface", "ressources/Tiled/tileset surface.png");
@@ -91,6 +96,13 @@ class surface extends Phaser.Scene {
         
         this.calque_sol.setCollisionByProperty({estSolide : true})
 
+        //creation de l'event resume qui permet de lire les data qui son transmise quand la scene est resume
+        //Ai essayer de le faire marcher avec les event mais je n'y arrive pas
+        //donc on passe par des références !
+        //this.events.on('resume',SceneJustResumed)
+        this.underground_01_ref = null
+        //sera actualiser quand la scene sera initialisé !
+
         prop_phys_group = this.physics.add.group({allowGravity : false})
         
 
@@ -157,8 +169,8 @@ class surface extends Phaser.Scene {
         //  ajout du champs de la caméra de taille identique à celle du monde
         this.cameras.main.setBounds(0, 0, WORLD_DIMENSION.width, WORLD_DIMENSION.height);
 
-        console.log(this.player.player_sprite)
-        console.log(this.porte_to_underground.sprite)
+        //console.log(this.player.player_sprite)
+        //console.log(this.porte_to_underground.sprite)
 
 
         this.physics.add.overlap(this.player.player_sprite,this.porte_to_underground.sprite,PlayerOverlapsUndergroundDoor,null,this);
@@ -221,8 +233,8 @@ class surface extends Phaser.Scene {
 
                         
 
-                        //new target
-                        if(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,ennemie.y)<=Phaser.Math.Distance.Between(tower.towerTarget_x,tower.towerTarget_y,tower.x,tower.y)){
+                        //new target picked up but not taking account of the Y value of the ennemie because if ennemies stack it should target the closest one to x i case ennemies stack
+                        if(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,tower.y)<=Phaser.Math.Distance.Between(tower.towerTarget_x,tower.y,tower.x,tower.y)){
                             tower.towerTarget_x = ennemie.x
                             tower.towerTarget_y = ennemie.y
                         }
@@ -259,8 +271,12 @@ class surface extends Phaser.Scene {
         if(this.cursors.shift.isDown && underground_door_overlapp){
 
             
+                if(this.underground_01_ref != null ){
+                    Generic_TransferDataToResumedScene(this,this.underground_01_ref)
+                    this.underground_01_ref.player.ammo = this.player.ammo
+                }
                 this.underground_was_generated = true
-                this.scene.run('underground_level_01')
+                this.scene.run('underground_level_01',this)
                 this.scene.sleep()
             
             
@@ -358,7 +374,18 @@ function PlayerAboveTower(player,tower){
 
     //console.log('above !')
     if(player.player_ref.scene.cursors.shift.isDown){
-        tower.tower_ref.reFillAmmo(60)
+        tower.tower_ref.reFillAmmo(this.player)
     }
+
+}
+
+
+// A appelé quand on resume une scene deja genéré
+function Generic_TransferDataToResumedScene(current_scene,ref_to_resumed_scene){
+
+    console.log('yo on reprend la scene',ref_to_resumed_scene.scene.key," depuis la scene ",current_scene.scene.key)
+    
+    
+    //TODO : changement des données, HP, ammo, etc ....
 
 }

@@ -6,6 +6,10 @@ class underground_level_01 extends Phaser.Scene {
     }
     init(data){
 
+        console.log('initialisation scene underground_level_01 avec data :',data)
+        this.surface_ref = data
+        this.surface_ref.underground_01_ref = this
+
     }
     preload() {
 
@@ -46,7 +50,7 @@ class underground_level_01 extends Phaser.Scene {
             "Underground_Tileset_Image"
         );
 
-        console.log(carteTilled_Underground);
+        //console.log(carteTilled_Underground);
         
         this.calque_fond = carteTilled_Underground.createLayer("fond",tileset)
         //this.calque_dirt = carteTilled_Underground.createLayer("dirt",tileset)
@@ -55,11 +59,13 @@ class underground_level_01 extends Phaser.Scene {
 
         this.porte = this.physics.add.group({allowGravity : false})
 
-        carteTilled_Underground.getObjectLayer('sortie').objects.forEach((porte) => {
+        this.porte_overworld =  []
+        carteTilled_Underground.getObjectLayer('sortie').objects.forEach((porte,i) => {
     
-            console.log(porte)
-            this.porte_overworld = new Porte(porte.x,porte.y-64,'porte',this.porte)
+            //console.log(porte)
+            this.porte_overworld[i] = new Porte(porte.x,porte.y,'porte',this.porte)
         });
+
         
         
         
@@ -69,10 +75,10 @@ class underground_level_01 extends Phaser.Scene {
         
 
         this.player_spawn_point = getPlayerSpawnPoint(carteTilled_Underground)
-        console.log(this.player_spawn_point)
+        //console.log(this.player_spawn_point)
         this.player = new Player('perso',this.player_spawn_point.x,this.player_spawn_point.y,this)
 
-        console.log(this.player)
+        //console.log(this.player)
         this.cameras.main.startFollow(this.player.player_sprite,false,0.2,1,0); 
         this.cameras.main.zoom = 1;
 
@@ -90,7 +96,7 @@ class underground_level_01 extends Phaser.Scene {
         for(let y = 0; y < 32; y++){
             for(let x = 0 ; x < 48 ; x++){
 
-                console.log('x :',x,'|y :',y)
+                //console.log('x :',x,'|y :',y)
 
                 carteTilled_Underground.layers.forEach((layer,index) => {
                     
@@ -113,7 +119,7 @@ class underground_level_01 extends Phaser.Scene {
                 if(this.dirt_map.Get_specific_cell_type_name(x,y) == 'dirt'){
 
                     this.sprite_to_use = Adapt_sprite(x,y,this.dirt_map.map_layers);
-                    console.log(this.sprite_to_use,'in x: ',x,'|y :',y);
+                    //console.log(this.sprite_to_use,'in x: ',x,'|y :',y);
                     this.dirt_map.map_layers[y][x].cell_sprite =  this.dirt_blocs.create(x*64+32,y*64+32,this.sprite_to_use).setImmovable(true);
                     
 
@@ -176,7 +182,13 @@ class underground_level_01 extends Phaser.Scene {
 
         });
         
-        this.physics.add.overlap(this.player.player_sprite,this.porte_overworld.sprite,PlayerOverlapsOverworldDoor,null,this);
+        this.porte_overworld.forEach((porte) => {
+            
+            this.physics.add.overlap(this.player.player_sprite,porte.sprite,PlayerOverlapsOverworldDoor,null,this);
+
+        });
+
+        
 
         
 
@@ -209,7 +221,7 @@ class underground_level_01 extends Phaser.Scene {
 
             //console.log("calc = x :",this.pointer_coord_x,"|y :",this.pointer_coord_y);
             if(this.pointer_coord_x>=0 && this.pointer_coord_x <= 48 && this.pointer_coord_y >= 0 && this.pointer_coord_y <= 32){
-                this.dirt_map.map_layers[this.pointer_coord_y][this.pointer_coord_x].was_hit()
+                this.dirt_map.map_layers[this.pointer_coord_y][this.pointer_coord_x].was_hit(this.player)
             }
 
             
@@ -220,7 +232,12 @@ class underground_level_01 extends Phaser.Scene {
        updatePlayerInfo(this.player)
         //pointer_info.clicked = false
         if(this.cursors.shift.isDown && overworld_door_overlapp){
-            this.scene.run('surface')
+            Generic_TransferDataToResumedScene(this,this.surface_ref)
+            this.scene.run('surface','yo nouvelle scene')
+            this.player.player_sprite.x = this.player_spawn_point.x
+            this.player.player_sprite.y = this.player_spawn_point.y
+
+            this.surface_ref.player.ammo = this.player.ammo
             this.scene.sleep()
             
         }
@@ -255,7 +272,7 @@ function getPlayerSpawnPoint(carte){
 
     spawn_point = {
         x : carte.getObjectLayer('entree').objects[0].x+carte.getObjectLayer('entree').objects[0].width/2,
-        y : carte.getObjectLayer('entree').objects[0].y
+        y : carte.getObjectLayer('entree').objects[0].y+carte.getObjectLayer('entree').objects[0].height/2,
     }
 
     return spawn_point
@@ -271,3 +288,5 @@ function PlayerOverlapsOverworldDoor(player,door){
 
 
 }
+
+

@@ -31,6 +31,8 @@ class Player {
         this.falling = false;
 
         this.onGround = true;
+        this.ammo = 0
+        this.carrying_capacity = 60
         
         //generation du sprite du joueur
         this.player_sprite = GeneratePlayerSprite(spriteSheet,this.scene,this);

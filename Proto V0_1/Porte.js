@@ -6,11 +6,11 @@ class Porte {
         this.y = y
         this.physics = physics_group
 
-        console.log(this.physics)
+        //console.log(this.physics)
         
         this.sprite = this.physics.create(this.x,this.y,sprite).setOrigin(0)
-        console.log(this.sprite)
-        console.log("x :",this.x,"|y :",this.y)
+        //console.log(this.sprite)
+        //console.log("x :",this.x,"|y :",this.y)
 
     }
 
