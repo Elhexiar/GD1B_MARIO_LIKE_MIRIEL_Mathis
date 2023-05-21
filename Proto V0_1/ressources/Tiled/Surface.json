@@ -342,6 +342,53 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
+         "id":12,
+         "name":"limite",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":14,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"limite",
+                         "type":"string",
+                         "value":"gauche"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":64,
+                 "y":704
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":15,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"limite",
+                         "type":"string",
+                         "value":"droite"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2880,
+                 "y":704
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "chunks":[
                 {
                  "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -399,8 +446,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":12,
- "nextobjectid":14,
+ "nextlayerid":13,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

@@ -198,6 +198,8 @@ class surface extends Phaser.Scene {
         tower_ref = this.tower
         scene_ref = this
 
+        this.scene.run('UI_Scene',{scene:this,carte:carteDuNiveau})
+
 
     }
 
