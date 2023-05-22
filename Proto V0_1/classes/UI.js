@@ -1,5 +1,3 @@
-
-
 class UI_Scene extends Phaser.Scene {
     constructor() {
 
@@ -9,6 +7,7 @@ class UI_Scene extends Phaser.Scene {
 
         
         this.surface_ref = data.scene
+        this.surface_ref.UI_ref = this
         this.carte = data.carte
         //console.log(this.carte)
     }
@@ -16,6 +15,7 @@ class UI_Scene extends Phaser.Scene {
         this.load.image('progress_bar_bg','ressources/assets/UI/progress_bar_bg.png')
         this.load.image('progress_bar_negative','ressources/assets/UI/progress_bar_negative.png')
         this.load.image('progress_bar_positive','ressources/assets/UI/progress_bar_positive.png')
+        this.load.image('progress_cursor','ressources/assets/progress_cursor.png')
        
         
     }
@@ -24,15 +24,19 @@ class UI_Scene extends Phaser.Scene {
         this.x = 0
         this.y = 0
         this.active = true
+        this.player_above = true
+        this.underground_ref = 'none yet'
         
         
         //this.nb_component = 0
         this.progress_bar = new progress_bar(this)
         this.cursor_ref = this.progress_bar.cursor
-        UI_ref = this
+        
 
         console.log(this.surface_ref.EnnemieManager)
         this.ref_EnnemieManager = this.surface_ref.EnnemieManager
+        this.progress_text = this.add.text(50,25,"PROGRESS :"+this.progress).setDepth(10)
+        this.ressources_text = this.add.text(1400,200 ,"RESSOURCES :"+this.surface_ref.player.ammo)
 
 
 
@@ -41,6 +45,15 @@ class UI_Scene extends Phaser.Scene {
     update(){
 
         this.progress_bar.UpdateProgression()
+        if(this.player_above == true){
+            this.ressources_text.setText("RESSOURCES :"+this.surface_ref.player.ammo)
+        }else{
+            if(this.underground_ref.player != undefined){
+            this.ressources_text.setText("RESSOURCES :"+this.underground_ref.player.ammo)
+            }
+        }
+        
+        
 
     }
 }
@@ -93,22 +106,37 @@ class progress_bar {
         console.log(this.graphics)
         console.log(this.mask)
 
-        this.cursor = new progress_bar_cursor(this.scene)
+        this.cursor = new progress_bar_cursor(this,this.scene)
 
     }
 
     UpdateProgression(){
 
         if(ennemie_number>0){
+
+            this.progress = 0
             this.scene.ref_EnnemieManager.list_of_ennemies.forEach(ennemie => {
 
-                
-            
+                if(ennemie.x>this.left_most_pos){
+                    this.ennemieprogress = (ennemie.x-this.left_most_pos)/this.progress_width
+                    if(this.ennemieprogress>this.progress){
+                        this.progress = this.ennemieprogress
+                    }
+                }
             });
+            if(this.progress>1){
+                this.progress = 1
+            }
 
         }else{
-            //this.progress = 0
+            this.progress = 0
         }
+
+        this.scene.progress_text.setText("PROGRESS :"+this.progress)
+
+        this.cursor.sprite.x = this.cursor.x + this.progress*1400
+        
+
 
         //this.mask = this.graphics.fillRect(100,60,this.width*this.progress,20)
         
@@ -121,10 +149,15 @@ class progress_bar {
 
 class progress_bar_cursor{
 
-    constructor(scene_ref){
+    constructor(progress_bar,scene_ref){
+
+        this.progress_bar = progress_bar
+
+        this.x = 30
+        this.y = 100
 
         this.scene = scene_ref
-        this.sprite
+        this.sprite = this.scene.add.image(this.x,this.y,"progress_cursor").setDepth(12)
 
     }
 

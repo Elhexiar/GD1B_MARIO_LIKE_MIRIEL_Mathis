@@ -151,6 +151,8 @@ class surface extends Phaser.Scene {
 
 
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.enter_key = this.input.keyboard.addKey('ENTER');
+        this.ctrl_key = this.input.keyboard.addKey('CTRL');
 
         this.physics.add.collider(this.player.player_sprite,this.calque_sol);
         this.physics.add.collider(this.structure,this.calque_sol);
@@ -181,7 +183,7 @@ class surface extends Phaser.Scene {
         
 
         this.physics.add.collider(this.ennemie_phy,this.calque_sol);
-        this.physics.add.collider(this.ennemie_phy,this.ennemie_phy);
+        //this.physics.add.collider(this.ennemie_phy,this.ennemie_phy);
 
         this.towers.tower_list.forEach((tower,i) => {
             this.physics.add.collider(this.ennemie_phy,tower.hitbox);
@@ -198,7 +200,12 @@ class surface extends Phaser.Scene {
         tower_ref = this.tower
         scene_ref = this
 
+        this.UI_ref = null
         this.scene.run('UI_Scene',{scene:this,carte:carteDuNiveau})
+
+        this.able_to_descend = true
+
+        //new Tower_Menu()
 
 
     }
@@ -243,7 +250,7 @@ class surface extends Phaser.Scene {
                         
                         tower.active = true
 
-                        console.log('tower ',i,' actif\t tower status : ',tower.active)
+                        //console.log('tower ',i,' actif\t tower status : ',tower.active)
                         //console.log('inside')
                         this.graphics.lineStyle(2,0x00ff00);
                     }
@@ -254,7 +261,7 @@ class surface extends Phaser.Scene {
     
             
     
-            this.graphics.strokeCircleShape(tower.hitbox_range).setDepth(5);
+            //this.graphics.strokeCircleShape(tower.hitbox_range).setDepth(5);
     
             tower.archer.UpdateArcherPos()
         });
@@ -270,16 +277,22 @@ class surface extends Phaser.Scene {
 
        
         
-        if(this.cursors.shift.isDown && underground_door_overlapp){
+        if(this.cursors.shift.isDown && underground_door_overlapp && this.able_to_descend == true){
 
             
                 if(this.underground_01_ref != null ){
                     Generic_TransferDataToResumedScene(this,this.underground_01_ref)
+                    console.log(this.underground_01_ref)
                     this.underground_01_ref.player.ammo = this.player.ammo
                 }
                 this.underground_was_generated = true
                 this.scene.run('underground_level_01',this)
-                this.scene.sleep()
+                this.player.player_sprite.setVelocityX(0)
+                this.player.player_sprite.setVelocityY(0)
+                this.able_to_descend = false
+                this.player.able_to_move = false
+                this.UI_ref.player_above =false
+                //this.scene.sleep()
             
             
         }
@@ -339,7 +352,7 @@ var ennemie_number = 0
 var CAMERA_OFFSET = 400
 
 var WORLD_DIMENSION = {
-    width : 3200,
+    width : 6400,
     height : 766
 }
 
@@ -357,7 +370,7 @@ var prop_phys_group
 function EnnemieWasHit(ennemie,projectile){
 
 
-    console.log(projectile)
+    //console.log(projectile)
     ennemie.ennemie_ref.wasHit(projectile.bullet_ref.damage)
     projectile.bullet_ref.kill()
 
@@ -376,8 +389,17 @@ function PlayerAboveTower(player,tower){
 
     //console.log('above !')
     if(player.player_ref.scene.cursors.shift.isDown){
-        tower.tower_ref.reFillAmmo(this.player)
+        tower.tower_ref.reFillAmmo(player.player_ref)
+        
     }
+    if(player.player_ref.scene.enter_key.isDown){
+        tower.tower_ref.repair(player.player_ref)
+    }
+    if(player.player_ref.scene.ctrl_key.isDown){
+        tower.tower_ref.Upgrade(player.player_ref)
+    }
+
+    tower.tower_ref.show_menu = true
 
 }
 

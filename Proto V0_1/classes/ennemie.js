@@ -8,6 +8,7 @@ class EnnemieManager {
         this.scene = scene
         this.physics_group = physics_group
         this.wave_counter = 0
+        this.wave_cooldown = 30000
 
 
     }
@@ -23,11 +24,20 @@ class EnnemieManager {
 
         this.wave_counter +=1
 
-        this.intensity = this.wave_counter*3
+        this.intensity = this.wave_counter*2
 
+        console.log("La Wave n°",this.wave_counter,"viens de se lancer !")
         for(let i = 0; i < this.intensity; i++){
             this.spawnSingleEnnemie((-i*70)-400,100)
         }
+
+    }
+
+    StartWave(){
+
+        this.SpawnWave()
+        console.log("Prochaine wave dans ",this.wave_cooldown/1000,"s !")
+        this.scene.time.delayedCall(this.wave_cooldown,() => { this.StartWave()},null,this)
 
     }
 
@@ -43,6 +53,7 @@ class EnnemieManager {
 
 
 }
+
 
 
 
@@ -90,7 +101,7 @@ class Ennemie {
                     this.target.kill()
                 }
                 
-                console.log('ennemie n°',this.index,"attaque la tour, il lui reste :",this.target.hp,"HP")
+                //console.log('ennemie n°',this.index,"attaque la tour, il lui reste :",this.target.hp,"HP")
                 this.scene.time.delayedCall(this.cooldown,() => { this.justAttacked =  false },null,this)
             
             }
@@ -103,7 +114,7 @@ class Ennemie {
 
     wasHit(damage){
 
-        console.log('pv :',this.hp)
+        //console.log('pv :',this.hp)
 
         this.hp = this.hp - damage
 

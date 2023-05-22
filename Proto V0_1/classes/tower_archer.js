@@ -49,6 +49,11 @@ class Tower_archer {
         this.hp = 20
         this.destroyed = false
         this.ammo_storage = new AmmoStorage(this.x,this.y,this)
+        this.show_menu = true
+        this.menu = new Tower_Menu(this.x,this.y,this.scene,this)
+        this.level = 1
+        this.upgrade_cost = 30*this.level
+        this.damage = 1
 
         this.ammo = 60
 
@@ -112,6 +117,7 @@ class Tower_archer {
                 
 
             }
+            
 
             //this.projectile_array.forEach(element => {
             //    this.scene.physics.add.collider(this.projectile)
@@ -129,10 +135,18 @@ class Tower_archer {
             }
 
         }
+        if(this.show_menu == true){
+
+            this.menu.Update_Menu()
+
+        }else{
+
+            this.menu.Hide()
+        }
 
         this.archer.UpdateArcher()
 
-
+        this.show_menu = false
 
     }
 
@@ -163,6 +177,36 @@ class Tower_archer {
 
     }
 
+    repair(player){
+
+        this.hp = this.hp + player.ammo
+        if(this.hp > 20){
+
+            player.ammo = this.hp-20
+            this.hp = 20
+        }else{
+            player.ammo = 0
+        }
+
+
+
+    }
+
+    Upgrade(player){
+
+
+        if(player.ammo >= this.upgrade_cost){
+            this.level = this.level+1
+            this.damage = this.level
+            this.hp = this.level*20
+            this.ammo = (this.level *30)+30
+            player.ammo = player.ammo - this.upgrade_cost
+        }
+
+
+
+    }
+
     
 
 
@@ -171,6 +215,59 @@ class Tower_archer {
 
 
     
+}
+
+class Tower_Menu {
+    
+    constructor(x,y,scene,tower_ref){
+
+        this.x = x
+        this.y = y
+        this.scene = scene
+        this.tower_ref = tower_ref
+        this.tower_HP = tower_ref.hp
+        this.tower_ammo = tower_ref.ammo
+        this.hp_text = this.scene.add.text(this.x,this.y,"HP :"+this.tower_HP).setDepth(10)
+        this.ammo_text = this.scene.add.text(this.x,this.y,"Ammo:"+this.tower_ammo).setDepth(10)
+        this.level_text = this.scene.add.text(this.x,this.y,"level "+this.tower_ref.level).setDepth(10)
+        this.upgrade_cost_text = this.scene.add.text(this.x,this.y,"UP : "+this.tower_ref.upgrade_cost+"$").setDepth(10)
+
+    }
+
+    Update_Menu(){
+        //console.log(this.tower_ref.sprite.y)
+        this.hp_text.visible = true
+        this.ammo_text.visible = true
+        this.level_text.visible = true
+        this.upgrade_cost_text.visible = true
+        this.x = this.tower_ref.sprite.x-30
+        this.y = this.tower_ref.sprite.y-20
+        this.hp_text.x = this.x
+        this.hp_text.y = this.y
+        this.tower_HP = this.tower_ref.hp
+        this.hp_text.setText("HP : "+this.tower_HP)
+        this.ammo_text.x = this.x
+        this.ammo_text.y = this.y+20
+        this.tower_ammo = this.tower_ref.ammo
+        this.ammo_text.setText("Ammo:"+this.tower_ammo)
+        this.level_text.x = this.x
+        this.level_text.y = this.y+35
+        this.level_text.setText("level "+this.tower_ref.level)
+        this.upgrade_cost_text.x = this.x
+        this.upgrade_cost_text.y = this.y + 50
+        this.upgrade_cost_text.setText("UP : "+this.tower_ref.upgrade_cost)
+
+
+    }
+
+    Hide(){
+        this.hp_text.visible = false
+        this.ammo_text.visible = false
+        this.level_text.visible = false
+        this.upgrade_cost_text.visible = false
+    }
+
+
 }
 
 
@@ -254,7 +351,8 @@ class projectile_archer {
         this.x = given_x
         this.y = given_y
         this.speed = 800
-        this.damage = 1
+        this.tower_ref = ref_tower
+        this.damage = this.tower_ref.damage
 
         this.physics_group = physics_group
 

@@ -21,6 +21,7 @@ class Player {
         this.speed = player_config.speed;
 
         this.jumpForce = player_config.jumpForce;
+        this.able_to_move = true
 
 
         //states
@@ -32,10 +33,10 @@ class Player {
 
         this.onGround = true;
         this.ammo = 0
-        this.carrying_capacity = 60
+        this.carrying_capacity = 800
         
         //generation du sprite du joueur
-        this.player_sprite = GeneratePlayerSprite(spriteSheet,this.scene,this);
+        this.player_sprite = GeneratePlayerSprite(spriteSheet,this.scene,this).setScale(2,2);
 
         this.player_sprite.player_ref = this
 
@@ -62,13 +63,26 @@ class Player {
 
     }
 
+    Teleport_To_Spawn(){
+        this.x = this.spawnX
+        this.y = this.spawnY
+        this.player_sprite.x = this.x
+        this.player_sprite.y = this.y
+        this.player_sprite.setVelocityX(0)
+        this.player_sprite.setVelocityY(0)
+        
+    }
+
     UpdatePlayerMovements(input){
+        if(this.able_to_move){
         if (input.right == true)                           
-                    {                                         
+                    {  
+                        this.player_sprite.setFlipX(0)                                       
                         this.player_sprite.setVelocityX(this.speed);                                                 
                     } 
                 else if (input.left == true)                           
-                    {                                     
+                    {       
+                        this.player_sprite.setFlipX(1)                                
                         this.player_sprite.setVelocityX(-this.speed);                                                          
                     }                                                   
                 else {
@@ -94,6 +108,7 @@ class Player {
 
                 this.x = this.player_sprite.x
                 this.y = this.player_sprite.y
+            }
     }
 
 

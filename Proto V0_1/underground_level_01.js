@@ -50,6 +50,8 @@ class underground_level_01 extends Phaser.Scene {
             "Underground_Tileset_Image"
         );
 
+
+        
         //console.log(carteTilled_Underground);
         
         this.calque_fond = carteTilled_Underground.createLayer("fond",tileset)
@@ -192,9 +194,13 @@ class underground_level_01 extends Phaser.Scene {
 
         
 
-        
+        this.active = true
 
         test_dirt_map = this.dirt_map
+
+        this.UI_ref = this.surface_ref.UI_ref
+        console.log(this.surface_ref)
+        this.UI_ref.underground_ref = this
     }
 
     update() { 
@@ -233,11 +239,15 @@ class underground_level_01 extends Phaser.Scene {
         //pointer_info.clicked = false
         if(this.cursors.shift.isDown && overworld_door_overlapp){
             Generic_TransferDataToResumedScene(this,this.surface_ref)
-            this.scene.run('surface','yo nouvelle scene')
+            this.scene.resume('surface','yo nouvelle scene')
             this.player.player_sprite.x = this.player_spawn_point.x
             this.player.player_sprite.y = this.player_spawn_point.y
 
             this.surface_ref.player.ammo = this.player.ammo
+            this.surface_ref.able_to_descend = true
+            this.surface_ref.player.able_to_move = true
+            this.surface_ref.player.Teleport_To_Spawn()
+            this.UI_ref.player_above = true
             this.scene.sleep()
             
         }
