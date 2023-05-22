@@ -24,12 +24,14 @@ class UI_Scene extends Phaser.Scene {
         this.x = 0
         this.y = 0
         this.active = true
-        this.surface_rer =
+        
         
         //this.nb_component = 0
         this.progress_bar = new progress_bar(this)
         this.cursor_ref = this.progress_bar.cursor
         UI_ref = this
+
+        console.log(this.surface_ref.EnnemieManager)
         this.ref_EnnemieManager = this.surface_ref.EnnemieManager
 
 
@@ -98,7 +100,7 @@ class progress_bar {
     UpdateProgression(){
 
         if(ennemie_number>0){
-            this.ref_EnnemieManager.list_of_ennemies.forEach(ennemie => {
+            this.scene.ref_EnnemieManager.list_of_ennemies.forEach(ennemie => {
 
                 
             
