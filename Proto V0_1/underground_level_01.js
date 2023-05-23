@@ -155,6 +155,7 @@ class underground_level_01 extends Phaser.Scene {
         });
 
         this.input.mouse.disableContextMenu();
+        console.log(this.input.mouse)
 
         this.input.on('pointerup', pointer =>
         {
