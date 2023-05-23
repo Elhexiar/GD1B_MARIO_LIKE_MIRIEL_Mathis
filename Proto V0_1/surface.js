@@ -27,6 +27,9 @@ class surface extends Phaser.Scene {
         this.load.spritesheet('ammo_storage','ressources/assets/ammo_storage_sheet.png',
                 {frameWidth:45,frameHeight:35});
         
+        
+        this.load.audio('theme', 'ressources/music/theme.mp3');
+        
 
 
         
@@ -82,6 +85,21 @@ class surface extends Phaser.Scene {
             frames: [{key: 'ammo_storage', frame :6}],
             framerate: 20
         })
+
+        this.theme_config = {
+            mute: false,
+            volume: 0.1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0,
+            }
+        
+        this.theme = this.sound.add('theme',this.theme_config)
+        
+            this.theme.play()
+            
 
 
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});

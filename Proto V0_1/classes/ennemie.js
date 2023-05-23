@@ -9,6 +9,8 @@ class EnnemieManager {
         this.physics_group = physics_group
         this.wave_counter = 0
         this.wave_cooldown = 30000
+        this.ennemie_hp = 3
+        this.ennemie_dmg = 1
 
 
     }
@@ -16,13 +18,19 @@ class EnnemieManager {
     spawnSingleEnnemie(x,y){
 
         this.index = this.list_of_ennemies.length
-        this.list_of_ennemies.push(new Ennemie(x,y,this.scene,this.physics_group,this,this.index))
+        this.list_of_ennemies.push(new Ennemie(x,y,this.scene,this.physics_group,this,this.index,this.ennemie_hp,this.ennemie_dmg))
 
     }
 
     SpawnWave(){
 
         this.wave_counter +=1
+
+        if(this.wave_counter % 3 == 0){
+            this.multiplier = this.wave_counter/3
+            this.ennemie_hp = this.ennemie_hp +3
+            this.ennemie_dmg = this.ennemie_dmg+1
+        }
 
         this.intensity = this.wave_counter*2
 
@@ -58,18 +66,18 @@ class EnnemieManager {
 
 
 class Ennemie {
-    constructor(given_x,given_y,scene,physics_group,manager,index){
+    constructor(given_x,given_y,scene,physics_group,manager,index,hp,damage){
 
         this.x = given_x
         this.y = given_y
         this.physics_group = physics_group
         this.scene = scene
-        this.hp = 3
+        this.hp = hp
         this.manager_ref = manager
         this.index = index
         this.active = false
         this.target = 'none'
-        this.damage = 1
+        this.damage = damage
         this.justAttacked = false
         this.cooldown = 1000
 

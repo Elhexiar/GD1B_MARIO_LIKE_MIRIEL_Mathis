@@ -56,6 +56,8 @@ class Tower_archer {
         this.damage = 1
 
         this.ammo = 60
+        this.max_ammo = 60
+        this.max_hp = 20
 
         this.towerTarget_x = 5000
         this.towerTarget_y = 5000
@@ -166,10 +168,10 @@ class Tower_archer {
     reFillAmmo(player){
 
         this.ammo = this.ammo + player.ammo
-        if(this.ammo >60){
+        if(this.ammo >this.max_ammo){
 
-            player.ammo = this.ammo-60
-            this.ammo = 60
+            player.ammo = this.ammo-this.max_ammo
+            this.ammo = this.max_ammo
         }else{
             player.ammo = 0
         }
@@ -180,10 +182,10 @@ class Tower_archer {
     repair(player){
 
         this.hp = this.hp + player.ammo
-        if(this.hp > 20){
+        if(this.hp > this.max_hp){
 
-            player.ammo = this.hp-20
-            this.hp = 20
+            player.ammo = this.hp-this.max_hp
+            this.hp = this.max_hp
         }else{
             player.ammo = 0
         }
@@ -196,11 +198,13 @@ class Tower_archer {
 
 
         if(player.ammo >= this.upgrade_cost){
-            this.level = this.level+1
-            this.damage = this.level
-            this.hp = this.level*20
-            this.ammo = (this.level *30)+30
             player.ammo = player.ammo - this.upgrade_cost
+            this.level = this.level+1
+            this.damage = this.level*1.5
+            this.max_hp = this.level*20
+            this.max_ammo = (this.level *30)+30
+            this.upgrade_cost = this.level * 60 -30
+            
         }
 
 
@@ -245,11 +249,11 @@ class Tower_Menu {
         this.hp_text.x = this.x
         this.hp_text.y = this.y
         this.tower_HP = this.tower_ref.hp
-        this.hp_text.setText("HP : "+this.tower_HP)
+        this.hp_text.setText("HP : "+this.tower_HP+"/"+this.tower_ref.max_hp)
         this.ammo_text.x = this.x
         this.ammo_text.y = this.y+20
         this.tower_ammo = this.tower_ref.ammo
-        this.ammo_text.setText("Ammo:"+this.tower_ammo)
+        this.ammo_text.setText("Ammo:"+this.tower_ammo+"/"+this.tower_ref.max_ammo)
         this.level_text.x = this.x
         this.level_text.y = this.y+35
         this.level_text.setText("level "+this.tower_ref.level)

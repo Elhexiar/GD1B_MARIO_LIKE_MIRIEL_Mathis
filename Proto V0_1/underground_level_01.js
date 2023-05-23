@@ -227,7 +227,12 @@ class underground_level_01 extends Phaser.Scene {
 
             //console.log("calc = x :",this.pointer_coord_x,"|y :",this.pointer_coord_y);
             if(this.pointer_coord_x>=0 && this.pointer_coord_x <= 48 && this.pointer_coord_y >= 0 && this.pointer_coord_y <= 32){
-                this.dirt_map.map_layers[this.pointer_coord_y][this.pointer_coord_x].was_hit(this.player)
+                //console.log(Phaser.Math.Distance.Between(pointer_info.screen_x,pointer_info.screen_y,800,450))
+                if(Phaser.Math.Distance.Between(pointer_info.screen_x,pointer_info.screen_y,800,450)<= this.player.range){
+                    
+                    this.dirt_map.map_layers[this.pointer_coord_y][this.pointer_coord_x].was_hit(this.player)
+                }
+                
             }
 
             
