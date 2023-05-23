@@ -19,7 +19,7 @@ class Player {
 
         // Player speed
         this.speed = player_config.speed;
-        this.range = 150
+        this.range = 151
 
         this.jumpForce = player_config.jumpForce;
         this.able_to_move = true
