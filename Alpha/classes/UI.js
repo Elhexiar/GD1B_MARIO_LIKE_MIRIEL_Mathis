@@ -26,8 +26,6 @@ class UI_Scene extends Phaser.Scene {
         this.active = true
         this.player_above = true
         this.underground_ref = 'none yet'
-
-        this.time_till_next_wave = 0
         
         
         //this.nb_component = 0
@@ -39,7 +37,6 @@ class UI_Scene extends Phaser.Scene {
         this.ref_EnnemieManager = this.surface_ref.EnnemieManager
         this.progress_text = this.add.text(50,25,"PROGRESS :"+this.progress).setDepth(10)
         this.ressources_text = this.add.text(1400,200 ,"RESSOURCES :"+this.surface_ref.player.ammo)
-        this.time_till_next_wave_text = this.add.text(200,25,"TIME UNTIL NEXT WAVE :"+this.time_till_next_wave)
 
 
 
@@ -55,8 +52,6 @@ class UI_Scene extends Phaser.Scene {
             this.ressources_text.setText("RESSOURCES :"+this.underground_ref.player.ammo)
             }
         }
-
-        //this.time_till_next_wave_text.setText("TIME UNTIL NEXT WAVE :"+this.surface_ref.EnnemieManager.wave_timer.elapsed)
         
         
 
@@ -169,24 +164,4 @@ class progress_bar_cursor{
 
 }
 
-class CursorOverlay {
-
-    constructor(){
-
-        this.x = pointer_info.x
-        this.y = pointer_info.y
-        this.visible = false
-
-        this.y_max = 5000
-        
-    }
-
-    Update_Overlay_Behaviour(){
-        
-    }
-
-}
-
 var UI_ref
-
-

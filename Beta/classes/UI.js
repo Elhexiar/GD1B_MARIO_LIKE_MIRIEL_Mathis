@@ -39,7 +39,7 @@ class UI_Scene extends Phaser.Scene {
         this.ref_EnnemieManager = this.surface_ref.EnnemieManager
         this.progress_text = this.add.text(50,25,"PROGRESS :"+this.progress).setDepth(10)
         this.ressources_text = this.add.text(1400,200 ,"RESSOURCES :"+this.surface_ref.player.ammo)
-        this.time_till_next_wave_text = this.add.text(200,25,"TIME UNTIL NEXT WAVE :"+this.time_till_next_wave)
+        this.time_till_next_wave_text = this.add.text(600,25,"TIME UNTIL NEXT WAVE :"+this.time_till_next_wave)
 
 
 
@@ -56,8 +56,9 @@ class UI_Scene extends Phaser.Scene {
             }
         }
 
-        //this.time_till_next_wave_text.setText("TIME UNTIL NEXT WAVE :"+this.surface_ref.EnnemieManager.wave_timer.elapsed)
-        
+        if(this.surface_ref.EnnemieManager.wave_timer !=0){
+        this.time_till_next_wave_text.setText("TIME UNTIL NEXT WAVE :"+parseInt(this.surface_ref.EnnemieManager.wave_timer.elapsed/this.surface_ref.EnnemieManager.wave_timer.delay*100) +"%")
+        }
         
 
     }
