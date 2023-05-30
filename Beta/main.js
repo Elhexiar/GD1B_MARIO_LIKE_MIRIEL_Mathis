@@ -33,6 +33,7 @@ var config = {
         debug: false
         }
     },
+    fps:{target : 60},
     input:{gamepad:true},
     maxLights : 20, 
 

@@ -300,7 +300,7 @@ class Tower_Menu {
         this.repair_widget.menu_ref = this
         this.repair_widget.setInteractive()
         this.repair_widget.on('pointerdown', function() {
-            this.menu_ref.tower_ref.Upgrade(this.menu_ref.scene.player)
+            this.menu_ref.tower_ref.repair(this.menu_ref.scene.player)
          }, this.repair_widget);
 
     }
@@ -444,8 +444,8 @@ class projectile_archer {
 
     constructor(given_x,given_y,target_x,target_y,physics_group,scene,ref_tower){
 
-        this.x = given_x
-        this.y = given_y
+        this.x = given_x-20
+        this.y = given_y-50
         this.speed = 800
         this.tower_ref = ref_tower
         this.damage = this.tower_ref.damage
@@ -453,8 +453,10 @@ class projectile_archer {
         this.physics_group = physics_group
 
         this.sprite = this.physics_group.create(this.x,this.y,'projectile')
+        this.sprite.angle = Phaser.Math.Angle.Between(target_x,target_y,this.x,this.y)*180/3.28 -90
         this.sprite.bullet_ref = this
         this.target_vector = new Phaser.Math.Vector2(target_x-this.x,target_y-this.y)
+        
         //console.log(this.target_vector)
         this.target_vector.normalize()
 

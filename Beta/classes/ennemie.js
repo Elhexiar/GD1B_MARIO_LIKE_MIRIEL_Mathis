@@ -94,12 +94,15 @@ class Ennemie {
         this.target = 'none'
         this.damage = damage
         this.justAttacked = false
+        this.attacking = false
         this.cooldown = 1000
         this.timer = 0
+        this.walking = true
 
         this.speed = 200
 
-        this.sprite = this.physics_group.create(this.x,this.y,'ennemie')
+        this.sprite = this.physics_group.create(this.x,this.y,'ennemie').setScale(2,2)
+        this.sprite.anims.playAfterDelay("ennemie walk",Phaser.Math.RND.between(50,500))
         this.sprite.ennemie_ref = this
         ennemie_number = ennemie_number+1
 
@@ -113,6 +116,12 @@ class Ennemie {
         this.y = this.sprite.y
 
         if(this.active == true){
+
+            if(this.attacking == false){
+                this.sprite.play('ennemie attack')
+            }
+            this.attacking = true
+            this.walking = false
 
             //TODO animation d'attaque
 
@@ -134,6 +143,20 @@ class Ennemie {
             
 
         }
+        if(this.active == false){
+            this.attacking == false
+
+            //console.log('YOOOO1')
+            if(this.walking == false){
+                this.walking = true
+                //console.log('YOOOO2')
+                this.sprite.play("ennemie walk")
+            }
+        }
+
+
+        this.active = false
+        
         
 
     }

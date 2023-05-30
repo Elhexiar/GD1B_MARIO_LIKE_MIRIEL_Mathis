@@ -18,7 +18,7 @@ class surface extends Phaser.Scene {
         this.load.spritesheet("archer", "ressources/assets/archer.png",
                 { frameWidth: 50, frameHeight: 100 });
         this.load.spritesheet("ennemie", "ressources/assets/ennemie-Sheet.png",
-                { frameWidth: 128, frameHeight: 64 });
+                { frameWidth: 64, frameHeight: 32 });
         this.load.image("bow","ressources/assets/arc.png")
 
         this.load.spritesheet('perso','ressources/assets/personnage_spritesheet.png',
@@ -39,6 +39,19 @@ class surface extends Phaser.Scene {
         
     }
     create() {
+
+        this.anims.create({
+            key : 'ennemie walk',
+            frames: this.anims.generateFrameNumbers('ennemie', {start:11,end:22}),
+            framerate: 1,
+            repeat: -1
+        })
+        this.anims.create({
+            key : 'ennemie attack',
+            frames: this.anims.generateFrameNumbers('ennemie', {start:0,end:10}),
+            framerate: 1,
+            repeat: -1
+        })
 
         this.anims.create({
             key: 'player idle',
