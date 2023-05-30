@@ -282,6 +282,27 @@ class Tower_Menu {
         this.level_text = this.scene.add.text(this.x,this.y,"level "+this.tower_ref.level).setDepth(10)
         this.upgrade_cost_text = this.scene.add.text(this.x,this.y,"UP : "+this.tower_ref.upgrade_cost+"$").setDepth(10)
 
+        this.reload_widget = this.scene.add.sprite(this.x, this.y,"reload widget").setDepth(10)
+        this.reload_widget.menu_ref = this
+        this.reload_widget.setInteractive()
+        this.reload_widget.on('pointerdown', function() {
+            this.menu_ref.tower_ref.reFillAmmo(this.menu_ref.scene.player)
+         }, this.reload_widget);
+
+        this.upgrade_widget = this.scene.add.sprite(this.x, this.y,"upgrade widget").setDepth(10)
+        this.upgrade_widget.menu_ref = this
+        this.upgrade_widget.setInteractive()
+        this.upgrade_widget.on('pointerdown', function() {
+            this.menu_ref.tower_ref.Upgrade(this.menu_ref.scene.player)
+         }, this.upgrade_widget);
+
+        this.repair_widget = this.scene.add.sprite(this.x, this.y,"repair widget").setDepth(10)
+        this.repair_widget.menu_ref = this
+        this.repair_widget.setInteractive()
+        this.repair_widget.on('pointerdown', function() {
+            this.menu_ref.tower_ref.Upgrade(this.menu_ref.scene.player)
+         }, this.repair_widget);
+
     }
 
     Update_Menu(){
@@ -307,6 +328,21 @@ class Tower_Menu {
         this.upgrade_cost_text.y = this.y + 50
         this.upgrade_cost_text.setText("UP : "+this.tower_ref.upgrade_cost)
 
+        this.reload_widget.setInteractive()
+        this.reload_widget.visible = true
+        this.reload_widget.x = this.x -32
+        this.reload_widget.y = this.y +120
+
+        this.upgrade_widget.setInteractive()
+        this.upgrade_widget.visible = true
+        this.upgrade_widget.x = this.x +32
+        this.upgrade_widget.y = this.y + 120
+
+        this.repair_widget.setInteractive()
+        this.repair_widget.visible = true
+        this.repair_widget.x = this.x +100
+        this.repair_widget.y = this.y + 120
+
 
     }
 
@@ -315,6 +351,16 @@ class Tower_Menu {
         this.ammo_text.visible = false
         this.level_text.visible = false
         this.upgrade_cost_text.visible = false
+
+        this.reload_widget.visible = false
+        this.reload_widget.disableInteractive()
+
+        this.upgrade_widget.visible = false
+        this.upgrade_widget.disableInteractive()
+
+        this.repair_widget.visible = false
+        this.repair_widget.disableInteractive()
+
     }
 
 

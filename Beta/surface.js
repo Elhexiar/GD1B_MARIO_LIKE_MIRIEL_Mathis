@@ -29,7 +29,10 @@ class surface extends Phaser.Scene {
         
         
         this.load.audio('theme', 'ressources/music/theme.mp3');
-        
+
+        this.load.spritesheet('reload widget','ressources/assets/UI/reload widget.png',{frameWidth:64,frameHeight:64});
+        this.load.spritesheet('upgrade widget','ressources/assets/UI/upgrade widget.png',{frameWidth:64,frameHeight:64});
+        this.load.spritesheet('repair widget','ressources/assets/UI/repair widget.png',{frameWidth:64,frameHeight:64});
 
 
         
@@ -385,7 +388,8 @@ class surface extends Phaser.Scene {
         if(pointer_info.clicked == true && this.UI_ref.player_above == true){
             pointer_info.clicked = false
 
-            this.towers.BuildNewTower({x:pointer_info.screen_x+this.player.x-800,y:570})
+            //a activer pour contruire en cliquant
+            //this.towers.BuildNewTower({x:pointer_info.screen_x+this.player.x-800,y:570})
         }
 
         underground_door_overlapp = false
