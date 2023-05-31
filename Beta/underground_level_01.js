@@ -215,6 +215,7 @@ class underground_level_01 extends Phaser.Scene {
             this.surface_ref.player.able_to_move = true
             this.surface_ref.player.Teleport_To_Spawn()
             this.UI_ref.player_above = true
+            this.surface_ref.porte_to_underground.sprite.setInteractive()
             this.scene.sleep()
     }
 

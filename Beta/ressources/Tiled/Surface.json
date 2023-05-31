@@ -19,14 +19,14 @@
          "objects":[
                 {
                  "class":"",
-                 "height":125.944,
+                 "height":201.944,
                  "id":12,
                  "name":"",
                  "rotation":0,
                  "visible":true,
                  "width":97.362,
                  "x":1313.69,
-                 "y":568.627
+                 "y":492.627
                 }, 
                 {
                  "class":"",
@@ -81,8 +81,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":2456,
-                 "y":646
+                 "x":1636,
+                 "y":618
                 }],
          "opacity":1,
          "type":"objectgroup",

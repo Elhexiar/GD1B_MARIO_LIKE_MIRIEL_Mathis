@@ -33,12 +33,30 @@ class surface extends Phaser.Scene {
         this.load.spritesheet('reload widget','ressources/assets/UI/reload widget.png',{frameWidth:64,frameHeight:64});
         this.load.spritesheet('upgrade widget','ressources/assets/UI/upgrade widget.png',{frameWidth:64,frameHeight:64});
         this.load.spritesheet('repair widget','ressources/assets/UI/repair widget.png',{frameWidth:64,frameHeight:64});
+        this.load.spritesheet('blank widget', 'ressources/assets/UI/blank widget.png',{frameWidth:64,frameHeight:64});
 
+        this.load.spritesheet('blank_bg_widget','ressources/assets/UI/blank_bg_widget.png',{frameWidth:64,frameHeight:64})
+        this.load.spritesheet('cross_widget','ressources/assets/UI/cross_widget.png',{frameWidth:64,frameHeight:64})
+        this.load.spritesheet('tower_widget','ressources/assets/UI/tower_widget.png',{frameWidth:64,frameHeight:64})
+        this.load.spritesheet('barricade_widget','ressources/assets/UI/barricade_widget.png',{frameWidth:64,frameHeight:64})
+
+        this.load.spritesheet('barricade','ressources/assets/barricade.png',{frameWidth:64,frameHeight:64})
+        //this.load.spritesheet()
 
         
         
     }
     create() {
+
+        for (let index = 0; index < 108; index++) {
+            this.anims.create({
+                key : 'energie'+index,
+                frames: [{key: 'perso', frame :index}],
+                framerate: 1,
+                repeat: -1
+            })
+            
+        }
 
         this.anims.create({
             key : 'ennemie walk',
@@ -123,6 +141,28 @@ class surface extends Phaser.Scene {
             loop: true,
             delay: 0,
             }
+
+        //-------------------------------------------------------------------------------------------------
+        // création des variables booléenne et diverse
+        //-------------------------------------------------------------------------------------------------
+        this.build_tower_selected = false
+        this.build_barricade_selected = false
+        this.ennemie_list = [];
+
+        this.curseur_overlay = 'none'
+
+        this.construction_wheel = null
+        this.underground_was_generated = false
+        this.UI_ref = null
+
+        this.able_to_descend = true
+        //creation de l'event resume qui permet de lire les data qui son transmise quand la scene est resume
+        //Ai essayer de le faire marcher avec les event mais je n'y arrive pas
+        //donc on passe par des références !
+        //this.events.on('resume',SceneJustResumed)
+        this.underground_01_ref = null
+        //sera actualiser quand la scene sera initialisé !
+
         
         this.theme = this.sound.add('theme',this.theme_config)
         
@@ -142,12 +182,7 @@ class surface extends Phaser.Scene {
         
         this.calque_sol.setCollisionByProperty({estSolide : true})
 
-        //creation de l'event resume qui permet de lire les data qui son transmise quand la scene est resume
-        //Ai essayer de le faire marcher avec les event mais je n'y arrive pas
-        //donc on passe par des références !
-        //this.events.on('resume',SceneJustResumed)
-        this.underground_01_ref = null
-        //sera actualiser quand la scene sera initialisé !
+        
 
         prop_phys_group = this.physics.add.group({allowGravity : false})
         
@@ -159,10 +194,15 @@ class surface extends Phaser.Scene {
     
             //console.log(porte)
             this.porte_to_underground = new Porte(porte.x,porte.y-64,'porte',this.porte)
+            this.porte_to_underground.sprite.scene_ref = this
+            this.porte_to_underground.sprite.setInteractive()
+            this.porte_to_underground.sprite.on('pointerdown', function() {
+                this.GoUnderground()
+             }, this);
         });
 
         
-        this.underground_was_generated = false
+        
          
 
         
@@ -173,6 +213,7 @@ class surface extends Phaser.Scene {
 
         this.structure = this.physics.add.group({allowGravity : true})
         this.ennemie_phy = this.physics.add.group({allowGravity : true})
+        this.barricade = this.physics.add.group({allowGravity : true})
         
 
         this.projectile_physic_group = this.physics.add.group({allowGravity : false})
@@ -184,9 +225,7 @@ class surface extends Phaser.Scene {
             
         });
 
-        this.ennemie_list = [];
-
-        this.curseur_overlay = 'none'
+        
 
         
 
@@ -201,6 +240,8 @@ class surface extends Phaser.Scene {
 
         this.physics.add.collider(this.player.player_sprite,this.calque_sol);
         this.physics.add.collider(this.structure,this.calque_sol);
+        this.physics.add.collider(this.barricade,this.calque_sol);
+
 
         
         
@@ -214,7 +255,7 @@ class surface extends Phaser.Scene {
 
         this.physics.world.setBounds(0, 0, WORLD_DIMENSION.width,WORLD_DIMENSION.height);
         //  ajout du champs de la caméra de taille identique à celle du monde
-        this.cameras.main.setBounds(0, 0, WORLD_DIMENSION.width, WORLD_DIMENSION.height);
+        //this.cameras.main.setBounds(0, 0, WORLD_DIMENSION.width, WORLD_DIMENSION.height);
 
         //console.log(this.player.player_sprite)
         //console.log(this.porte_to_underground.sprite)
@@ -228,6 +269,8 @@ class surface extends Phaser.Scene {
         
 
         this.physics.add.collider(this.ennemie_phy,this.calque_sol);
+        this.physics.add.collider(this.ennemie_phy,this.calque_sol);
+        this.physics.add.collider(this.ennemie_phy,this.barricade);
         //this.physics.add.collider(this.ennemie_phy,this.ennemie_phy);
 
 
@@ -245,10 +288,10 @@ class surface extends Phaser.Scene {
         tower_ref = this.tower
         scene_ref = this
 
-        this.UI_ref = null
+        
         this.scene.run('UI_Scene',{scene:this,carte:carteDuNiveau})
 
-        this.able_to_descend = true
+        
 
 
     
@@ -257,7 +300,21 @@ class surface extends Phaser.Scene {
             //console.log("raw  = x :",pointer.x,"|y :",pointer.y);
             
 
-            pointer_info.clicked = true
+            if(pointer.leftButtonDown()){
+                pointer_info.clicked = true
+                console.log('left')
+            }
+            if(pointer.rightButtonDown()){
+                pointer_info.right_clicked = true
+                console.log('right')
+                if(scene_ref.construction_wheel == null){
+                    Build_construction_wheel(scene_ref)
+                }else{
+                    scene_ref.construction_wheel.kill_wheel()
+                }
+                
+            }
+            
             
 
             
@@ -287,7 +344,7 @@ class surface extends Phaser.Scene {
             else if (pointer.rightButtonReleased())
             {
                 console.log('Right Button was released');
-                pointer_info.clicked = false
+                pointer_info.right_clicked = false
             }
             else if (pointer.middleButtonReleased())
             {
@@ -305,6 +362,8 @@ class surface extends Phaser.Scene {
         });
 
         //new Tower_Menu()
+
+        
 
 
     }
@@ -379,30 +438,37 @@ class surface extends Phaser.Scene {
         
         if(this.cursors.shift.isDown && underground_door_overlapp && this.able_to_descend == true){
 
-            
-                if(this.underground_01_ref != null ){
-                    Generic_TransferDataToResumedScene(this,this.underground_01_ref)
-                    console.log(this.underground_01_ref)
-                    this.underground_01_ref.player.ammo = this.player.ammo
-                }
-                this.underground_was_generated = true
-                this.scene.run('underground_level_01',this)
-                this.player.location = 'underground_01'
-                this.player.player_sprite.setVelocityX(0)
-                this.player.player_sprite.setVelocityY(0)
-                this.able_to_descend = false
-                this.player.able_to_move = false
-                this.UI_ref.player_above =false
-                //this.scene.sleep()
-            
+            this.GoUnderground()
             
         }
 
         if(pointer_info.clicked == true && this.UI_ref.player_above == true){
             pointer_info.clicked = false
 
-            //a activer pour contruire en cliquant
-            //this.towers.BuildNewTower({x:pointer_info.screen_x+this.player.x-800,y:570})
+            if(this.build_tower_selected == true){
+
+                if(this.player.ammo >= 90){
+                    this.player.ammo -= 90
+                    this.towers.BuildNewTower({x:pointer_info.screen_x + this.player.x - 800 ,y:pointer_info.screen_y+this.player.y -650})
+
+                }
+                
+                //
+                this.build_tower_selected = false
+
+            }
+            if(this.build_barricade_selected == true){
+
+                if(this.player.ammo >= 20){
+                    this.player.ammo -= 20
+                    new barricade(pointer_info.screen_x + this.player.x - 800 ,pointer_info.screen_y+this.player.y -650,this,this.barricade)
+
+                }
+                
+                //
+                this.build_barricade_selected = false
+
+            }
         }
 
         underground_door_overlapp = false
@@ -413,6 +479,25 @@ class surface extends Phaser.Scene {
 
         
         
+    }
+    
+    GoUnderground(){
+        if(this.underground_01_ref != null ){
+            Generic_TransferDataToResumedScene(this,this.underground_01_ref)
+            console.log(this.underground_01_ref)
+            this.underground_01_ref.player.ammo = this.player.ammo
+        }
+        this.underground_was_generated = true
+        this.scene.run('underground_level_01',this)
+        this.player.location = 'underground_01'
+        this.player.player_sprite.setVelocityX(0)
+        this.player.player_sprite.setVelocityY(0)
+        this.able_to_descend = false
+        this.player.able_to_move = false
+        this.UI_ref.player_above =false
+        this.porte_to_underground.sprite.disableInteractive()
+        
+
     }
 
    
@@ -457,7 +542,7 @@ var test_var
 var scene_ref
 var ennemie_number = 0
 
-var CAMERA_OFFSET = 400
+var CAMERA_OFFSET = 200
 
 var WORLD_DIMENSION = {
     width : 6400,
@@ -522,10 +607,18 @@ function Generic_TransferDataToResumedScene(current_scene,ref_to_resumed_scene){
 
 }
 
+function Build_construction_wheel(scene){
+
+
+    scene.construction_wheel = new construction_wheel(pointer_info.screen_x + scene.player.x - 800 ,pointer_info.screen_y+scene.player.y -650,scene)
+
+}
+
 
 
 
 var pointer_info = {
+    right_clicked: false ,
     clicked : false,
     screen_x : 0,
     screen_y : 0

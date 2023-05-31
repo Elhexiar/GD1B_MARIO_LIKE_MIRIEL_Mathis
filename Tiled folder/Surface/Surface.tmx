@@ -25,13 +25,13 @@
   <image source="surface temp bg.png" width="6400" height="766"/>
  </imagelayer>
  <objectgroup id="7" name="tour">
-  <object id="12" x="1313.69" y="568.627" width="97.362" height="125.944"/>
+  <object id="12" x="1313.69" y="492.627" width="97.362" height="201.944"/>
   <object id="16" x="4295.32" y="567.695" width="97.362" height="125.944"/>
   <object id="17" x="4804.65" y="563.695" width="97.362" height="125.944"/>
   <object id="18" x="5381.99" y="570.361" width="97.362" height="125.944"/>
  </objectgroup>
  <objectgroup id="11" name="spawn_point">
-  <object id="11" x="2456" y="646">
+  <object id="11" x="1636" y="618">
    <point/>
   </object>
  </objectgroup>

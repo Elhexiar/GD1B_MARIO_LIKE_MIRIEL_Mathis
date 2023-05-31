@@ -66,7 +66,7 @@ class Tower_archer {
         this.x = tilled_object.x
         this.y = tilled_object.y
 
-        this.default_height = 125
+        this.default_height = 180
         this.default_width = 100
 
         this.sprite = 'none'
@@ -113,7 +113,7 @@ class Tower_archer {
 
     Build_Tower_From_Tilled(){
 
-        this.sprite = this.physics_group.create(this.x,this.y,'tower').setImmovable(true)
+        this.sprite = this.physics_group.create(this.x,this.y,'tower').setImmovable(true).setScale(3,3)
         //console.log(this.tilled_ref)
         this.hitbox = this.scene.add.rectangle(this.tilled_ref.x,this.tilled_ref.y+this.tilled_ref.height/2 , this.tilled_ref.width, this.tilled_ref.height);
         this.scene.physics.add.existing(this.hitbox,true)
@@ -124,9 +124,9 @@ class Tower_archer {
 
     Build_Tower_From_Coord(){
 
-        this.sprite = this.physics_group.create(this.x,this.y,'tower').setImmovable(true)
+        this.sprite = this.physics_group.create(this.x,this.y,'tower').setImmovable(true).setScale(3,3)
         //console.log(this.tilled_ref)
-        this.hitbox = this.scene.add.rectangle(this.x,this.y+this.default_height/2 , this.default_width, this.default_height);
+        this.hitbox = this.scene.add.rectangle(this.x,590 , this.default_width, this.default_height);
         this.scene.physics.add.existing(this.hitbox,true)
         this.hitbox.tower_ref = this
         //console.log(this.hitbox)
@@ -148,7 +148,7 @@ class Tower_archer {
             if(this.justShot == false){
 
                 if(this.ammo > 0){
-                this.projectile_array.push(new projectile_archer(this.x,this.y,this.towerTarget_x,this.towerTarget_y,this.projectile_physics_group,this.scene,this))
+                this.projectile_array.push(new projectile_archer(this.archer.bow.x,this.archer.bow.y+55,this.towerTarget_x,this.towerTarget_y,this.projectile_physics_group,this.scene,this))
                 
                 this.justShot = true
                 this.ammo = this.ammo-1
@@ -331,17 +331,17 @@ class Tower_Menu {
         this.reload_widget.setInteractive()
         this.reload_widget.visible = true
         this.reload_widget.x = this.x -32
-        this.reload_widget.y = this.y +120
+        this.reload_widget.y = this.y +190
 
         this.upgrade_widget.setInteractive()
         this.upgrade_widget.visible = true
         this.upgrade_widget.x = this.x +32
-        this.upgrade_widget.y = this.y + 120
+        this.upgrade_widget.y = this.y + 190
 
         this.repair_widget.setInteractive()
         this.repair_widget.visible = true
         this.repair_widget.x = this.x +100
-        this.repair_widget.y = this.y + 120
+        this.repair_widget.y = this.y + 190
 
 
     }
@@ -383,13 +383,14 @@ class Archer {
     }
 
     UpdateArcherPos(){
-        this.x = this.sprite.x
-        this.y = this.sprite.y
+        
     }
 
     UpdateArcher(){
 
         //console.log('archer_update')
+        this.x = this.sprite.x
+        this.y = this.sprite.y
 
         this.bow.UpdateBow()
 
@@ -452,7 +453,7 @@ class projectile_archer {
 
         this.physics_group = physics_group
 
-        this.sprite = this.physics_group.create(this.x,this.y,'projectile')
+        this.sprite = this.physics_group.create(this.x,this.y,'projectile').setScale(2,2)
         this.sprite.angle = Phaser.Math.Angle.Between(target_x,target_y,this.x,this.y)*180/3.28 -90
         this.sprite.bullet_ref = this
         this.target_vector = new Phaser.Math.Vector2(target_x-this.x,target_y-this.y)
@@ -484,13 +485,13 @@ class AmmoStorage {
     
     constructor(tower_x,tower_y,tower_ref){
 
-        this.x_offset = 50
-        this.y_offset = 100
+        this.x_offset = 0
+        this.y_offset = 175
         this.x = tower_x+this.x_offset
         this.y = tower_y+this.y_offset
         this.tower_ref = tower_ref
 
-        this.sprite = prop_phys_group.create(this.x,this.y,'ammo_storage').setDepth(8)
+        this.sprite = prop_phys_group.create(this.x,675,'ammo_storage').setDepth(2)
         this.sprite.anims.play('6_ammo')
 
     }

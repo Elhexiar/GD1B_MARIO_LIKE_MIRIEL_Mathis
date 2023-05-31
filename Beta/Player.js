@@ -148,7 +148,7 @@ class Player {
 function GeneratePlayerSprite(spriteSheet,scene,player){
 
     
-    return scene.physics.add.sprite(player.spawnX, player.spawnY, 'perso');
+    return scene.physics.add.sprite(player.spawnX, player.spawnY, 'perso').setDepth(3);
 
 
 }
