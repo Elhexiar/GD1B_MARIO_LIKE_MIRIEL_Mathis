@@ -92,32 +92,39 @@ class underground_level_01 extends Phaser.Scene {
         this.dirt_blocs = this.physics.add.group({allowGravity : false})
 
 
-        this.dirt_map = new Cell_Map(48,32,64,carteTilled_Underground,this.dirt_blocs)
+        this.dirt_map = new Cell_Map(111,35,64,carteTilled_Underground,this.dirt_blocs)
         
 
         test_dirt_map = this.dirt_map
-        for(let y = 0; y < 32; y++){
-            for(let x = 0 ; x < 48 ; x++){
+        for(let y = 0; y < 35; y++){
+            for(let x = 0 ; x < 111 ; x++){
 
-                //console.log('x :',x,'|y :',y)
+                console.log('x :',x,'|y :',y)
 
                 carteTilled_Underground.layers.forEach((layer,index) => {
                     
                     if(layer.name == 'dirt'){
-                        //console.log(layer)
+                        
+                        
+                        if(layer.data[y][x] != null){
+                        console.log(layer.data[y][x])
                         if(layer.data[y][x].properties.cell_type == 'dirt'){
                             this.dirt_map.Change_cell(x,y,'dirt');
                             //console.log('xd')
                         }
+                    }
+                            
+
+                        
                     }                        
             
                 });
 
             }
         }
-        for(let y = 0; y < 32; y++){
+        for(let y = 0; y < 35; y++){
             
-            for(let x = 0 ; x < 48 ; x++){
+            for(let x = 0 ; x < 111 ; x++){
 
                 if(this.dirt_map.Get_specific_cell_type_name(x,y) == 'dirt'){
 
@@ -178,7 +185,7 @@ class underground_level_01 extends Phaser.Scene {
             this.pointer_coord_y = (this.pointer_coord_y - this.pointer_coord_y%64)/64
 
             //console.log("calc = x :",this.pointer_coord_x,"|y :",this.pointer_coord_y);
-            if(this.pointer_coord_x>=0 && this.pointer_coord_x <= 48 && this.pointer_coord_y >= 0 && this.pointer_coord_y <= 32){
+            if(this.pointer_coord_x>=0 && this.pointer_coord_x <= 111 && this.pointer_coord_y >= 0 && this.pointer_coord_y <= 35){
                 //console.log(Phaser.Math.Distance.Between(pointer_info.screen_x,pointer_info.screen_y,800,450))
                 if(Phaser.Math.Distance.Between(pointer_info.screen_x,pointer_info.screen_y,800,450)<= this.player.range){
                     

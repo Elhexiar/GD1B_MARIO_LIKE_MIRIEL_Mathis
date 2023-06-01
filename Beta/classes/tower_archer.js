@@ -27,7 +27,7 @@ class TowerManager {
         this.tower_list[i].SpawnArcher();
         this.scene.physics.add.collider(this.scene.structure,this.tower_list[i].hitbox)
         
-        this.scene.physics.add.overlap(this.scene.ennemie_phy,this.tower_list[i].hitbox,EnnemieHitTower,null,this.scene)
+        this.scene.physics.add.overlap(this.scene.ennemie_phy,this.tower_list[i].hitbox,EnnemieHitStructure,null,this.scene)
         this.scene.physics.add.collider(this.scene.ennemie_phy,this.tower_list[i].hitbox);
 
         this.scene.physics.add.overlap(this.scene.player.player_sprite,this.tower_list[i].hitbox,PlayerAboveTower,null,this.scene)
@@ -117,25 +117,25 @@ class Tower_archer {
         //console.log(this.tilled_ref)
         this.hitbox = this.scene.add.rectangle(this.tilled_ref.x,this.tilled_ref.y+this.tilled_ref.height/2 , this.tilled_ref.width, this.tilled_ref.height);
         this.scene.physics.add.existing(this.hitbox,true)
-        this.hitbox.tower_ref = this
+        this.hitbox.structure_ref = this
         //console.log(this.hitbox)
 
     }
 
     Build_Tower_From_Coord(){
 
-        this.sprite = this.physics_group.create(this.x,this.y,'tower').setImmovable(true).setScale(3,3)
+        this.sprite = this.physics_group.create(this.x,500,'tower').setImmovable(true).setScale(3,3)
         //console.log(this.tilled_ref)
         this.hitbox = this.scene.add.rectangle(this.x,590 , this.default_width, this.default_height);
         this.scene.physics.add.existing(this.hitbox,true)
-        this.hitbox.tower_ref = this
+        this.hitbox.structure_ref = this
         //console.log(this.hitbox)
 
     }
 
     SpawnArcher(){
 
-        this.archer = new Archer(this.x,this.y-200,this.physics_group,this)
+        this.archer = new Archer(this.x,300,this.physics_group,this)
 
     }
 

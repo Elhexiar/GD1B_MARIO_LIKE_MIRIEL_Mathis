@@ -8,7 +8,7 @@ class EnnemieManager {
         this.scene = scene
         this.physics_group = physics_group
         this.wave_counter = 0
-        this.wave_cooldown = 45000
+        this.wave_cooldown = 100000
         this.ennemie_hp = 4
         this.ennemie_dmg = 1
         this.wave_timer = 0
@@ -48,7 +48,7 @@ class EnnemieManager {
 
         console.log("La Wave n°",this.wave_counter,"viens de se lancer !")
         for(let i = 0; i < this.intensity; i++){
-            this.spawnSingleEnnemie((-i*70)-400,100)
+            this.spawnSingleEnnemie((-i*70)-400,50)
         }
 
     }
@@ -101,7 +101,7 @@ class Ennemie {
 
         this.speed = 200
 
-        this.sprite = this.physics_group.create(this.x,this.y,'ennemie').setScale(2,2)
+        this.sprite = this.physics_group.create(this.x,this.y,'ennemie').setScale(2,2).setDepth(10)
         this.sprite.anims.playAfterDelay("ennemie walk",Phaser.Math.RND.between(50,500))
         this.sprite.ennemie_ref = this
         ennemie_number = ennemie_number+1
@@ -144,7 +144,7 @@ class Ennemie {
 
         }
         if(this.active == false){
-            this.attacking == false
+            this.attacking = false
 
             //console.log('YOOOO1')
             if(this.walking == false){

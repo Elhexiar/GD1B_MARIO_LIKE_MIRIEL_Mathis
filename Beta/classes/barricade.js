@@ -4,11 +4,25 @@ class barricade {
 
         this.x = x
         this.y = 590
+        this.hp = 20
 
-        this.physics = physics_group
+        
         this.scene = scene
+        this.physics = this.scene.physics.add.group();
+        this.scene.physics.add.collider(this.physics,this.scene.calque_sol);
+        this.scene.physics.add.collider(this.physics,this.scene.ennemie_phy,EnnemieHitStructure,null,this);
 
         this.sprite = this.physics.create(this.x,this.y,'barricade').setImmovable(true)
+        
+        this.sprite.structure_ref = this
+
+    }
+
+    kill(){
+
+        this.sprite.destroy()
+
+
 
     }
 

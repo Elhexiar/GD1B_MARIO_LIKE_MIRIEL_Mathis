@@ -48,15 +48,6 @@ class surface extends Phaser.Scene {
     }
     create() {
 
-        for (let index = 0; index < 108; index++) {
-            this.anims.create({
-                key : 'energie'+index,
-                frames: [{key: 'perso', frame :index}],
-                framerate: 1,
-                repeat: -1
-            })
-            
-        }
 
         this.anims.create({
             key : 'ennemie walk',
@@ -271,6 +262,8 @@ class surface extends Phaser.Scene {
         this.physics.add.collider(this.ennemie_phy,this.calque_sol);
         this.physics.add.collider(this.ennemie_phy,this.calque_sol);
         this.physics.add.collider(this.ennemie_phy,this.barricade);
+
+        //this.physics.add.overlap(this.barricade,this.ennemie_phy,EnnemieHitsBarricade,null,this)
         //this.physics.add.collider(this.ennemie_phy,this.ennemie_phy);
 
 
@@ -454,9 +447,10 @@ class surface extends Phaser.Scene {
                 }
                 
                 //
-                this.build_tower_selected = false
+                
 
             }
+            this.build_tower_selected = false
             if(this.build_barricade_selected == true){
 
                 if(this.player.ammo >= 20){
@@ -466,9 +460,10 @@ class surface extends Phaser.Scene {
                 }
                 
                 //
-                this.build_barricade_selected = false
+                
 
             }
+            this.build_barricade_selected = false
         }
 
         underground_door_overlapp = false
@@ -569,12 +564,12 @@ function EnnemieWasHit(ennemie,projectile){
 
 }
 
-function EnnemieHitTower(tower,ennemie){
+function EnnemieHitStructure(structure,ennemie){
 
-
+    //console.log(structure)
 
     ennemie.ennemie_ref.active = true
-    ennemie.ennemie_ref.target = tower.tower_ref
+    ennemie.ennemie_ref.target = structure.structure_ref
 
 }
 
@@ -592,7 +587,7 @@ function PlayerAboveTower(player,tower){
         tower.tower_ref.Upgrade(player.player_ref)
     }
 
-    tower.tower_ref.show_menu = true
+    tower.structure_ref.show_menu = true
 
 }
 
@@ -614,6 +609,11 @@ function Build_construction_wheel(scene){
 
 }
 
+function skipCurrentWaveTimer(){
+
+    scene_ref.EnnemieManager.wave_timer.elapsed = scene_ref.EnnemieManager.wave_timer.delay -10
+
+}
 
 
 

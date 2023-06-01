@@ -5,6 +5,7 @@ class Cell_Map {
         this.map_width = width;
         this.map_height = height;
         this.physics_group = physics_group_ref
+       
         
         this.pixel_cell_size = pixel_size;
         
@@ -171,7 +172,7 @@ function x_from_map(chosen_x,chosen_y,carte){
     //console.log('look',chosen_y,chosen_x)
     //console.log(carte)
 
-    if(chosen_x>0 && chosen_x<48 && chosen_y > 0 && chosen_y < 32){
+    if(chosen_x>0 && chosen_x<111 && chosen_y > 0 && chosen_y < 35){
         return carte[chosen_y][chosen_x].cell_type
     }else{
         return false
@@ -300,7 +301,7 @@ function Destroy_selected_cell(x,y,main_map,physics_bloc){
     
     main_map.Change_cell(x,y,'air');
 
-    if(main_map.map_layers[y][x].cell_sprite != 'none' && x>=0 && x <= 48 && y >= 0 && y <= 32){
+    if(main_map.map_layers[y][x].cell_sprite != 'none' && x>=0 && x <= 111 && y >= 0 && y <= 35){
         //console.log("destroying cell, x:",x,"|y:",y)
         main_map.map_layers[y][x].cell_sprite.destroy()
         Update_adjacent_sprites(x,y,main_map,physics_bloc)
