@@ -73,27 +73,45 @@ class progress_bar {
         this.x = 800
         this.y = 100
         this.width = 1400
+        this.left =  new Object
+        this.right = new Object
 
-        this.scene.carte.getObjectLayer('limite').objects.forEach((object) => {
+        this.scene.carte.getObjectLayer('limite gauche').objects.forEach((object) => {
     
             object.properties.forEach((limite,i) => {
                 //console.log(limite)
                 if(limite.value == 'gauche'){
 
-                    this.left_most_pos = object.x
+                    this.left.left_most_pos = object.x
+                    console.log(this.left.left_most_pos)
                 }
                 if(limite.value == 'droite'){
-                    this.right_most_pos = object.x
+                    this.left.right_most_pos = object.x
                 }
             });
         });
+        this.scene.carte.getObjectLayer('limite droite').objects.forEach((object) => {
+    
+            object.properties.forEach((limite,i) => {
+                //console.log(limite)
+                if(limite.value == 'gauche'){
+
+                    this.right.left_most_pos = object.x
+                }
+                if(limite.value == 'droite'){
+                    this.right.right_most_pos = object.x
+                }
+            });
+        });
+        console.log(this.left.left_most_pos)
 
         
         
-        this.progress_width = this.right_most_pos-this.left_most_pos
+        this.left.progress_width = this.left.right_most_pos-this.left.left_most_pos
+        this.right.progress_width = this.right.right_most_pos-this.right.left_most_pos
         this.right_most_ennemie_x = 0
 
-        this.progress = 1
+        this.progress_left = 1
 
 
         this.bg_sprite = this.scene.add.image(this.x,this.y,'progress_bar_bg')
@@ -102,17 +120,19 @@ class progress_bar {
 
         this.graphics = this.scene.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { alpha: 0.2 }});
 
-        this.mask = this.scene.add.rectangle(100,60,this.width*this.progress,20)
-        this.graphics.strokeRectShape(this.mask)
+        //this.mask = this.scene.add.rectangle(100,60,this.width*this.progress,20)
+        //this.graphics.strokeRectShape(this.mask)
 
         
-        this.negative_sprite.createGeometryMask(this.mask) 
+        //this.negative_sprite.createGeometryMask(this.mask) 
 
         //this.graphics.fillRect(100,100,this.width*this.progress,20)
-        console.log(this.graphics)
-        console.log(this.mask)
+        //console.log(this.graphics)
+        //console.log(this.mask)
 
-        this.cursor = new progress_bar_cursor(this,this.scene)
+        this.cursor_left = new progress_bar_cursor(30,100,this,this.scene);
+        
+        this.cursor_right = new progress_bar_cursor(1570,100,this,this.scene)
 
     }
 
@@ -120,27 +140,51 @@ class progress_bar {
 
         if(ennemie_number>0){
 
-            this.progress = 0
+            this.progress_left = 0
+            //this.cursor_right = 0
             this.scene.ref_EnnemieManager.list_of_ennemies.forEach(ennemie => {
 
-                if(ennemie.x>this.left_most_pos){
-                    this.ennemieprogress = (ennemie.x-this.left_most_pos)/this.progress_width
-                    if(this.ennemieprogress>this.progress){
-                        this.progress = this.ennemieprogress
+                if(ennemie.x < 3000){
+                    //console.log(ennemie.x,this.left.left_most_pos)
+                    if(ennemie.x>this.left.left_most_pos){
+                        
+                        this.left.ennemieprogress = (ennemie.x-this.left.left_most_pos)/this.left.progress_width
+                        if(this.left.ennemieprogress>this.left.progress_left){
+                            this.left.progress_left = this.left.ennemieprogress
+                        }
                     }
+
                 }
+                if(ennemie.x>3000){
+                    if(ennemie.x<this.right.right_most_pos){
+                        
+                        this.right.ennemieprogress = -(ennemie.x-this.right.right_most_pos)/this.right.progress_width
+                        //.log(this.right.ennemieprogress)
+                        if(this.right.ennemieprogress>this.right.progress_left){
+                            this.right.progress_left = this.right.ennemieprogress
+                            //console.log(this.right.ennemieprogress)
+                        }
+                    }
+
+                }
+                
             });
-            if(this.progress>1){
-                this.progress = 1
+            if(this.left.progress_left>1){
+                this.left.progress_left = 1
+            }
+            if(this.right.progress_left>1){
+                this.right.progress_left = 1
             }
 
         }else{
-            this.progress = 0
+            this.left.progress_left = 0
+            this.right.progress_left = 0
         }
 
         this.scene.progress_text.setText("PROGRESS :"+this.progress)
 
-        this.cursor.sprite.x = this.cursor.x + this.progress*1400
+        this.cursor_left.sprite.x = (this.cursor_left.x + this.left.progress_left*1400)/2
+        this.cursor_right.sprite.x = (this.cursor_right.x - this.right.progress_left*1400)/2 +800
         
 
 
@@ -155,12 +199,12 @@ class progress_bar {
 
 class progress_bar_cursor{
 
-    constructor(progress_bar,scene_ref){
+    constructor(x,y,progress_bar,scene_ref){
 
         this.progress_bar = progress_bar
 
-        this.x = 30
-        this.y = 100
+        this.x = x
+        this.y = y
 
         this.scene = scene_ref
         this.sprite = this.scene.add.image(this.x,this.y,"progress_cursor").setDepth(12)
@@ -191,3 +235,33 @@ class CursorOverlay {
 var UI_ref
 
 
+class TowerGhost {
+
+    constructor(){
+
+        this.x = 0
+        this.y = 0
+        this.visible = false
+
+
+    }
+
+    show(){
+        this.visible = true
+        this.sprite.visible = true
+    }
+
+    hide(){
+        this.visible = false
+        this.sprite.visible = false
+    }
+
+    updateGhostTower(pointer){
+
+        this.x = pointer.x
+        this.y = pointer.y
+
+    }
+
+
+}

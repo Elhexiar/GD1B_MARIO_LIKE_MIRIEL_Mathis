@@ -99,6 +99,25 @@ class Player {
         
     }
 
+    Teleport_To_Pos_1(){
+        this.x = 1220
+        this.y = 600
+        this.player_sprite.x = this.x
+        this.player_sprite.y = this.y
+        this.player_sprite.setVelocityX(0)
+        this.player_sprite.setVelocityY(0)
+
+    }
+    Teleport_To_Pos_2(){
+        this.x = 5000
+        this.y = 600
+        this.player_sprite.x = this.x
+        this.player_sprite.y = this.y
+        this.player_sprite.setVelocityX(0)
+        this.player_sprite.setVelocityY(0)
+
+    }
+
     UpdatePlayerMovements(input){
         if(this.able_to_move){
             this.walk = false

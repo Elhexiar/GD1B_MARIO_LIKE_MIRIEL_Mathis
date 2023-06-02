@@ -18,48 +18,26 @@
          "name":"tour",
          "objects":[
                 {
+                 "class":"",
                  "height":201.944,
                  "id":12,
                  "name":"",
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":97.362,
                  "x":1313.69,
                  "y":492.627
                 }, 
                 {
-                 "height":125.944,
-                 "id":16,
+                 "class":"",
+                 "height":186.944,
+                 "id":19,
                  "name":"",
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":97.362,
-                 "x":4295.32,
-                 "y":567.695
-                }, 
-                {
-                 "height":125.944,
-                 "id":17,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":97.362,
-                 "x":4804.65,
-                 "y":563.695
-                }, 
-                {
-                 "height":125.944,
-                 "id":18,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":97.362,
-                 "x":5381.99,
-                 "y":570.361
+                 "x":4857.13718181818,
+                 "y":494.997696969697
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -73,16 +51,16 @@
          "name":"spawn_point",
          "objects":[
                 {
+                 "class":"",
                  "height":0,
                  "id":11,
                  "name":"",
                  "point":true,
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1513.33333333333,
-                 "y":607.454545454545
+                 "x":4776.33,
+                 "y":575.455
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -96,36 +74,36 @@
          "name":"display",
          "objects":[
                 {
+                 "class":"",
                  "gid":216,
                  "height":64,
                  "id":7,
                  "name":"",
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":64,
                  "x":902,
                  "y":480
                 }, 
                 {
+                 "class":"",
                  "gid":166,
                  "height":64,
                  "id":8,
                  "name":"",
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":64,
                  "x":902,
                  "y":417
                 }, 
                 {
+                 "class":"",
                  "gid":217,
                  "height":64,
                  "id":9,
                  "name":"",
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":64,
                  "x":887,
@@ -505,7 +483,7 @@
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    53, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53, 53,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -513,6 +491,28 @@
                  "height":16,
                  "width":16,
                  "x":128,
+                 "y":0
+                }, 
+                {
+                 "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    53, 53, 53, 53, 53, 53, 53, 53, 53, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 "height":16,
+                 "width":16,
+                 "x":144,
                  "y":0
                 }],
          "height":16,
@@ -523,7 +523,7 @@
          "starty":0,
          "type":"tilelayer",
          "visible":true,
-         "width":240,
+         "width":256,
          "x":0,
          "y":0
         }, 
@@ -533,12 +533,12 @@
          "name":"porte",
          "objects":[
                 {
+                 "class":"",
                  "gid":56,
                  "height":64,
                  "id":5,
                  "name":"",
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":64,
                  "x":2944,
@@ -553,9 +553,10 @@
         {
          "draworder":"topdown",
          "id":12,
-         "name":"limite",
+         "name":"limite gauche",
          "objects":[
                 {
+                 "class":"",
                  "height":0,
                  "id":14,
                  "name":"",
@@ -567,13 +568,13 @@
                          "value":"gauche"
                         }],
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":0,
                  "x":64,
                  "y":704
                 }, 
                 {
+                 "class":"",
                  "height":0,
                  "id":15,
                  "name":"",
@@ -585,11 +586,57 @@
                          "value":"droite"
                         }],
                  "rotation":0,
-                 "type":"",
                  "visible":true,
                  "width":0,
                  "x":2880,
                  "y":704
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":13,
+         "name":"limite droite",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":20,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"limite",
+                         "type":"string",
+                         "value":"gauche"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":3248,
+                 "y":648
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":21,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"limite",
+                         "type":"string",
+                         "value":"droite"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":6248,
+                 "y":632
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -655,11 +702,11 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":13,
- "nextobjectid":19,
+ "nextlayerid":14,
+ "nextobjectid":22,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.9.2",
  "tileheight":64,
  "tilesets":[
         {
@@ -705,6 +752,6 @@
         }],
  "tilewidth":64,
  "type":"map",
- "version":"1.10",
+ "version":"1.9",
  "width":30
 }

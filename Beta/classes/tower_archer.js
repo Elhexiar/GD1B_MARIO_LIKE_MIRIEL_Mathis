@@ -94,8 +94,12 @@ class Tower_archer {
         this.max_ammo = 60
         this.max_hp = 20
 
-        this.towerTarget_x = 5000
-        this.towerTarget_y = 5000
+        this.towerTarget_x = 0
+        if(this.x > 3000){
+            this.towerTarget_x = 100000
+
+        }
+        this.towerTarget_y = 100
 
         //this.circle_hitbox_range_physics_group = this.scene.physics.add.group({allowGravity : false})
         this.hitbox_range = this.scene.add.circle(this.x,this.y,this.range)
@@ -114,6 +118,9 @@ class Tower_archer {
     Build_Tower_From_Tilled(){
 
         this.sprite = this.physics_group.create(this.x,this.y,'tower').setImmovable(true).setScale(3,3)
+        if(this.x > 3000){
+            this.sprite.setFlipX(true)
+        }
         //console.log(this.tilled_ref)
         this.hitbox = this.scene.add.rectangle(this.tilled_ref.x,this.tilled_ref.y+this.tilled_ref.height/2 , this.tilled_ref.width, this.tilled_ref.height);
         this.scene.physics.add.existing(this.hitbox,true)
@@ -125,6 +132,10 @@ class Tower_archer {
     Build_Tower_From_Coord(){
 
         this.sprite = this.physics_group.create(this.x,500,'tower').setImmovable(true).setScale(3,3)
+        if(this.x > 3000){
+            this.sprite.setFlipX(true)
+        }
+
         //console.log(this.tilled_ref)
         this.hitbox = this.scene.add.rectangle(this.x,590 , this.default_width, this.default_height);
         this.scene.physics.add.existing(this.hitbox,true)
@@ -178,8 +189,12 @@ class Tower_archer {
 
             if(this.destroyed == false){
             this.archer.sprite.anims.play('inactive_archer')
-            this.towerTarget_x = 5000
-            this.towerTarget_y = 5000
+            this.towerTarget_x = 0
+            if(this.x > 3000){
+                this.towerTarget_x = 100000
+
+            }
+            this.towerTarget_y = 100
             }
 
         }
@@ -378,6 +393,9 @@ class Archer {
         
         this.physics_group = given_physics
         this.sprite = this.physics_group.create(this.x,this.y,'archer')
+        if(this.x > 3000){
+            this.sprite.setFlipX(true)
+        }
         this.bow = new Bow(this.x,this.y,this,this.tower_ref)
         this.target = 'none'
     }
@@ -403,27 +421,36 @@ class Bow {
 
     constructor(given_x,given_y,archer_ref,tower_ref){
 
-        this.x = given_x-20
+        this.x = given_x
         this.y = given_y
         this.tower_ref = tower_ref
         this.archer_ref = archer_ref
+        this.angle_offset = 180
+        
         
         this.physics_group = prop_phys_group
         this.sprite = this.physics_group.create(this.x,this.y,'bow')
         this.angle = 0
+
+        
+        
 
     }
 
     UpdateBow(){
 
 
-        this.x = this.archer_ref.x -20
-        this.y = this.archer_ref.y
+        this.x = this.archer_ref.x
+        if(this.x > 3000){
+            
+            this.angle_offset = 180
+        }
+        this.y = this.archer_ref.y-10
 
         this.sprite.x = this.x
         this.sprite.y = this.y
 
-        this.angle_offset = 200
+        //this.angle_offset = 200
 
         //console.log("angle before ",this.angle)
         this.angle = (Phaser.Math.Angle.Between(this.x,this.y,this.tower_ref.towerTarget_x,this.tower_ref.towerTarget_y)*180/3.28) + this.angle_offset
@@ -445,7 +472,7 @@ class projectile_archer {
 
     constructor(given_x,given_y,target_x,target_y,physics_group,scene,ref_tower){
 
-        this.x = given_x-20
+        this.x = given_x
         this.y = given_y-50
         this.speed = 800
         this.tower_ref = ref_tower

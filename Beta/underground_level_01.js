@@ -65,7 +65,14 @@ class underground_level_01 extends Phaser.Scene {
         carteTilled_Underground.getObjectLayer('sortie').objects.forEach((porte,i) => {
     
             //console.log(porte)
-            this.porte_overworld[i] = new Porte(porte.x,porte.y,'porte',this.porte)
+            
+            this.porte_overworld[i] = new Porte(porte.x,porte.y,'porte',this.porte,porte.properties[0].value)
+            console.log(porte.properties[0].value)
+            this.porte_overworld[i].sprite.scene_ref = this
+            this.porte_overworld[i].sprite.setInteractive()
+            this.porte_overworld[i].sprite.on('pointerdown', function() {
+                this.MovePlayerSurface(this.porte_overworld[i].direction)
+            }, this);
         });
 
         
@@ -143,11 +150,8 @@ class underground_level_01 extends Phaser.Scene {
 
         
         
-        this.porte_overworld.forEach((porte) => {
-            
-            this.physics.add.overlap(this.player.player_sprite,porte.sprite,PlayerOverlapsOverworldDoor,null,this);
+        
 
-        });
 
         
 
@@ -201,16 +205,15 @@ class underground_level_01 extends Phaser.Scene {
 
        updatePlayerInfo(this.player)
         //pointer_info.clicked = false
-        if(this.cursors.shift.isDown && overworld_door_overlapp){
-            this.MovePlayerSurface()
-            
-        }
+        // if(this.cursors.shift.isDown && overworld_door_overlapp){
+        //     this.MovePlayerSurface(0)    
+        // }
         overworld_door_overlapp = false
 
         
     }
 
-    MovePlayerSurface(){
+    MovePlayerSurface(position){
         Generic_TransferDataToResumedScene(this,this.surface_ref)
             this.scene.resume('surface','yo nouvelle scene')
             this.player.player_sprite.x = this.player_spawn_point.x
@@ -220,7 +223,17 @@ class underground_level_01 extends Phaser.Scene {
             this.surface_ref.player.location = 'surface'
             this.surface_ref.able_to_descend = true
             this.surface_ref.player.able_to_move = true
-            this.surface_ref.player.Teleport_To_Spawn()
+            if(position == 0){
+                this.surface_ref.player.Teleport_To_Spawn()
+            }
+            if(position == 1){
+                this.surface_ref.player.Teleport_To_Pos_1()
+            }
+            if(position == 2){
+                this.surface_ref.player.Teleport_To_Pos_2()
+
+            }
+            
             this.UI_ref.player_above = true
             this.surface_ref.porte_to_underground.sprite.setInteractive()
             this.scene.sleep()
@@ -257,12 +270,5 @@ function getPlayerSpawnPoint(carte){
 
 var overworld_door_overlapp = false
 
-function PlayerOverlapsOverworldDoor(player,door){
-
-    overworld_door_overlapp = true
-
-
-
-}
 
 

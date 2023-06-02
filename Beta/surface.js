@@ -26,6 +26,9 @@ class surface extends Phaser.Scene {
         this.load.image("projectile", "ressources/assets/projectile.png")
         this.load.spritesheet('ammo_storage','ressources/assets/ammo_storage_sheet.png',
                 {frameWidth:45,frameHeight:35});
+        this.load.spritesheet('Shortcut','ressources/assets/Shortcut_sheet.png',
+                {frameWidth:128,frameHeight:64});
+        
         
         
         this.load.audio('theme', 'ressources/music/theme.mp3');
@@ -47,6 +50,13 @@ class surface extends Phaser.Scene {
         
     }
     create() {
+
+        this.anims.create({
+            key : 'shortcut available',
+            frames: [{key: 'Shortcut', frame :1}],
+            framerate: 1,
+            repeat: -1
+        })
 
 
         this.anims.create({
@@ -191,6 +201,9 @@ class surface extends Phaser.Scene {
                 this.GoUnderground()
              }, this);
         });
+
+        this.left_shortcut = new Shortcut(1450,675,1,this)
+        this.right_shortcut = new Shortcut(5000,675,2,this)
 
         
         
@@ -395,10 +408,24 @@ class surface extends Phaser.Scene {
                         
 
                         //new target picked up but not taking account of the Y value of the ennemie because if ennemies stack it should target the closest one to x i case ennemies stack
-                        if(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,tower.y)<=Phaser.Math.Distance.Between(tower.towerTarget_x,tower.y,tower.x,tower.y)){
-                            tower.towerTarget_x = ennemie.x
-                            tower.towerTarget_y = ennemie.y
-                        }
+                        // if(tower.x < 3000){
+                            // console.log(tower.towerTarget_x)
+                            // console.log(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,tower.y), '//',Phaser.Math.Distance.Between(tower.towerTarget_x,tower.y,tower.x,tower.y))
+                            if(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,tower.y)<=Phaser.Math.Distance.Between(tower.towerTarget_x,tower.y,tower.x,tower.y)){
+                                tower.towerTarget_x = ennemie.x
+                                tower.towerTarget_y = ennemie.y
+                            }
+
+                        // }
+                        // if(tower.x > 3000){
+                        //     if(Phaser.Math.Distance.Between(tower.x,tower.y,ennemie.x,tower.y)<=Phaser.Math.Distance.Between(tower.towerTarget_x,tower.y,tower.x,tower.y)){
+                        //         tower.towerTarget_x = ennemie.x
+                        //         tower.towerTarget_y = ennemie.y
+                        //     }
+
+                        // }
+
+                        
                         
                         tower.active = true
 
