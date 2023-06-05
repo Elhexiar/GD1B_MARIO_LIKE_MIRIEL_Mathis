@@ -369,7 +369,7 @@ class surface extends Phaser.Scene {
 
         //new Tower_Menu()
 
-        
+        this.EnnemieManager.StartWave()
 
 
     }
