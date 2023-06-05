@@ -371,6 +371,20 @@ class surface extends Phaser.Scene {
 
         this.EnnemieManager.StartWave()
 
+        this.data_to_transfer_tuto = {
+            surface_ref : this
+        }
+
+        this.ref_to_tuto = 'none'
+
+        this.time.delayedCall(1000,() => { 
+            
+            this.scene.run('Tutorial_scene',this)
+            this.scene.pause()
+            
+
+    },null,this)
+
 
     }
     

@@ -37,7 +37,8 @@ class UI_Scene extends Phaser.Scene {
 
         console.log(this.surface_ref.EnnemieManager)
         this.ref_EnnemieManager = this.surface_ref.EnnemieManager
-        this.progress_text = this.add.text(50,25,"PROGRESS :"+this.progress).setDepth(10)
+        this.progress_text = this.add.text(50,25,"PROGRESS :"+this.progress,).setDepth(10).setFont("Comic Sans MS").setFontSize(32);
+
         this.ressources_text = this.add.text(1400,200 ,"RESSOURCES :"+this.surface_ref.player.ammo)
         this.time_till_next_wave_text = this.add.text(600,25,"TIME UNTIL NEXT WAVE :"+this.time_till_next_wave)
 
