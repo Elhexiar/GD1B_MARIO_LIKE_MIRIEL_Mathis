@@ -37,7 +37,7 @@ var config = {
     input:{gamepad:true},
     maxLights : 20, 
 
-    scene: [surface,underground_level_01,UI_Scene,Tutorial_scene]
+    scene: [Start_scene,surface,underground_level_01,UI_Scene,Tutorial_scene]
 
    
 

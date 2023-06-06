@@ -20,6 +20,9 @@ class surface extends Phaser.Scene {
         this.load.spritesheet("ennemie", "ressources/assets/ennemie-Sheet.png",
                 { frameWidth: 64, frameHeight: 32 });
         this.load.image("bow","ressources/assets/arc.png")
+        this.load.image("dune_bg","ressources/assets/bg dune.png")
+        this.load.image("dune02","ressources/assets/dune02.png")
+        this.load.image("sky bg","ressources/assets/sky_bg.png")
 
         this.load.spritesheet('perso','ressources/assets/personnage_spritesheet.png',
                 { frameWidth: 28, frameHeight: 46 });
@@ -172,8 +175,16 @@ class surface extends Phaser.Scene {
 
 
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 }, fillStyle: { color: 0xff0000 }});
-
-        this.background = this.add.image(WORLD_DIMENSION.width/2,WORLD_DIMENSION.height/2,'temp bg');
+        this.sky = this.add.image(0,200,'sky bg').setScrollFactor(0,0).setScale(2,2)
+        
+        this.dune02 = this.add.image(WORLD_DIMENSION.width/2,550,'dune02').setScale(4.5,4.5)
+        this.background_dunes = this.add.image(WORLD_DIMENSION.width/2,320,'dune_bg').setScale(2,2).setScrollFactor(0.90,0.9)
+        
+        
+        this.background = this.add.image(WORLD_DIMENSION.width/2,WORLD_DIMENSION.height/2-500,'temp bg').setScale(4,4.5).setScrollFactor(0.95,1);
+        
+        
+        
         const carteDuNiveau = this.add.tilemap("carte");
         const tileset = carteDuNiveau.addTilesetImage(
             "tileset surface",
