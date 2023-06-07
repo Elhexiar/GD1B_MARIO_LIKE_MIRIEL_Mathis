@@ -209,7 +209,7 @@ class surface extends Phaser.Scene {
             this.porte_to_underground.sprite.scene_ref = this
             this.porte_to_underground.sprite.setInteractive()
             this.porte_to_underground.sprite.on('pointerdown', function() {
-                this.GoUnderground()
+                this.GoUnderground(0)
              }, this);
         });
 
@@ -483,7 +483,7 @@ class surface extends Phaser.Scene {
         
         if(this.cursors.shift.isDown && underground_door_overlapp && this.able_to_descend == true){
 
-            this.GoUnderground()
+            this.GoUnderground(0)
             
         }
 
@@ -528,21 +528,64 @@ class surface extends Phaser.Scene {
         
     }
     
-    GoUnderground(){
-        if(this.underground_01_ref != null ){
-            Generic_TransferDataToResumedScene(this,this.underground_01_ref)
-            console.log(this.underground_01_ref)
-            this.underground_01_ref.player.ammo = this.player.ammo
+    GoUnderground(position){
+        if(position == 0){
+            if(this.underground_01_ref != null ){
+                Generic_TransferDataToResumedScene(this,this.underground_01_ref)
+                console.log(this.underground_01_ref)
+                this.underground_01_ref.player.ammo = this.player.ammo
+            }
+            this.underground_was_generated = true
+            this.scene.run('underground_level_01',this)
+            this.player.location = 'underground_01'
+            this.player.player_sprite.setVelocityX(0)
+            this.player.player_sprite.setVelocityY(0)
+            this.able_to_descend = false
+            this.player.able_to_move = false
+            this.UI_ref.player_above =false
+            this.porte_to_underground.sprite.disableInteractive()
         }
-        this.underground_was_generated = true
-        this.scene.run('underground_level_01',this)
-        this.player.location = 'underground_01'
-        this.player.player_sprite.setVelocityX(0)
-        this.player.player_sprite.setVelocityY(0)
-        this.able_to_descend = false
-        this.player.able_to_move = false
-        this.UI_ref.player_above =false
-        this.porte_to_underground.sprite.disableInteractive()
+        if(position == 1){
+            if(this.underground_01_ref != null ){
+                Generic_TransferDataToResumedScene(this,this.underground_01_ref)
+                console.log(this.underground_01_ref)
+                this.underground_01_ref.player.ammo = this.player.ammo
+            }
+            this.underground_was_generated = true
+            this.scene.run('underground_level_01',this)
+            this.player.location = 'underground_01'
+            this.player.player_sprite.setVelocityX(0)
+            this.player.player_sprite.setVelocityY(0)
+            // this.underground_01_ref.player.x = 1430
+            // this.underground_01_ref.player.player_sprite.x = 1430
+            // this.underground_01_ref.player.y = 510
+            // this.underground_01_ref.player.player_sprite.y = 510
+            this.able_to_descend = false
+            this.player.able_to_move = false
+            this.UI_ref.player_above =false
+            this.porte_to_underground.sprite.disableInteractive()
+        }
+        if(position == 2){
+            if(this.underground_01_ref != null ){
+                Generic_TransferDataToResumedScene(this,this.underground_01_ref)
+                console.log(this.underground_01_ref)
+                this.underground_01_ref.player.ammo = this.player.ammo
+            }
+            this.underground_was_generated = true
+            this.scene.run('underground_level_01',this)
+            this.player.location = 'underground_01'
+            this.player.player_sprite.setVelocityX(0)
+            this.player.player_sprite.setVelocityY(0)
+            // this.underground_01_ref.player.x = 6500
+            this.underground_01_ref.player.player_sprite.x = 6500
+            // this.underground_01_ref.player.y = 510
+            this.underground_01_ref.player.player_sprite.y = 510
+            this.able_to_descend = false
+            this.player.able_to_move = false
+            this.UI_ref.player_above =false
+            this.porte_to_underground.sprite.disableInteractive()
+        }
+        
         
 
     }

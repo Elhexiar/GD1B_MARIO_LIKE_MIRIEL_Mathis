@@ -225,12 +225,17 @@ class underground_level_01 extends Phaser.Scene {
             this.surface_ref.player.able_to_move = true
             if(position == 0){
                 this.surface_ref.player.Teleport_To_Spawn()
+                
             }
             if(position == 1){
                 this.surface_ref.player.Teleport_To_Pos_1()
+                this.surface_ref.left_shortcut.sprite.play('shortcut available')
+                this.surface_ref.left_shortcut.toggleInteractive()
             }
             if(position == 2){
                 this.surface_ref.player.Teleport_To_Pos_2()
+                this.surface_ref.right_shortcut.sprite.play('shortcut available')
+                this.surface_ref.right_shortcut.toggleInteractive()
 
             }
             

@@ -21,6 +21,7 @@ class UI_Scene extends Phaser.Scene {
         
     }
     create() {
+        this
 
         this.x = 0
         this.y = 0
@@ -40,10 +41,20 @@ class UI_Scene extends Phaser.Scene {
 
         console.log(this.surface_ref.EnnemieManager)
         this.ref_EnnemieManager = this.surface_ref.EnnemieManager
-        this.progress_text = this.add.text(50,25,"PROGRESS :"+this.progress,).setDepth(10).setFont("Comic Sans MS").setFontSize(32);
+        //this.progress_text = this.add.text(50,25,"PROGRESS :"+this.progress,).setDepth(10).setFontSize(32);
 
-        this.ressources_text = this.add.text(1400,200 ,"RESSOURCES :"+this.surface_ref.player.ammo)
-        this.time_till_next_wave_text = this.add.text(600,25,"TIME UNTIL NEXT WAVE :"+this.time_till_next_wave)
+        this.ressources_text = this.add.text(1250,150 ,"RESSOURCES :"+this.surface_ref.player.ammo).setFontSize(32)
+        this.time_till_next_wave_text = this.add.text(700,25,"TIME UNTIL NEXT WAVE :"+this.time_till_next_wave)
+
+        for (let index = 0; index < 10; index++) {
+            this.anims.create({
+                key : ('wave timer state '+index),
+                frames: [{key: 'wave timer', frame :index}],
+                framerate: 1,
+                repeat: 1
+            })
+            
+        }
 
 
 
@@ -52,6 +63,8 @@ class UI_Scene extends Phaser.Scene {
     update(){
 
         this.progress_bar.UpdateProgression()
+        this.wave_timer_visual.play("wave timer state "+parseInt(this.surface_ref.EnnemieManager.wave_timer.elapsed/this.surface_ref.EnnemieManager.wave_timer.delay*10))
+
         if(this.player_above == true){
             this.ressources_text.setText("RESSOURCES :"+this.surface_ref.player.ammo)
         }else{
@@ -141,7 +154,9 @@ class progress_bar {
     }
 
     UpdateProgression(){
-
+        //this.progress_left = 0
+        this.left.progress_left = 0
+        this.right.progress_left = 0
         if(ennemie_number>0){
 
             this.progress_left = 0
@@ -185,7 +200,7 @@ class progress_bar {
             this.right.progress_left = 0
         }
 
-        this.scene.progress_text.setText("PROGRESS :"+this.progress)
+        // this.scene.progress_text.setText("PROGRESS :"+this.progress)
 
         this.cursor_left.sprite.x = (this.cursor_left.x + this.left.progress_left*1400)/2
         this.cursor_right.sprite.x = (this.cursor_right.x - this.right.progress_left*1400)/2 +800

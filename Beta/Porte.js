@@ -39,6 +39,17 @@ class Shortcut {
         
 
     }
+    
+    toggleInteractive(){
+
+        this.sprite.short_ref = this
+        this.sprite.setInteractive()
+        this.sprite.on('pointerdown', function() {
+            console.log(this.short_ref.direction)
+                this.short_ref.scene.GoUnderground(0)
+             }, this.sprite);
+        }
+
+    }
 
 
-}

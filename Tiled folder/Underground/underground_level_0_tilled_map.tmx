@@ -638,7 +638,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="11" name="dirt" width="30" height="20">
+ <layer id="11" name="dirt" width="30" height="20" opacity="0.43">
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
 103,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
