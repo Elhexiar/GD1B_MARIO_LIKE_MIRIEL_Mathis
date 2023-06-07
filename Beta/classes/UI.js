@@ -16,7 +16,8 @@ class UI_Scene extends Phaser.Scene {
         this.load.image('progress_bar_negative','ressources/assets/UI/progress_bar_negative.png')
         this.load.image('progress_bar_positive','ressources/assets/UI/progress_bar_positive.png')
         this.load.image('progress_cursor','ressources/assets/progress_cursor.png')
-       
+        this.load.spritesheet('wave timer','ressources/assets/UI/wave timer visual.png',
+        {frameWidth:150,frameHeight:50});
         
     }
     create() {
@@ -32,6 +33,8 @@ class UI_Scene extends Phaser.Scene {
         
         //this.nb_component = 0
         this.progress_bar = new progress_bar(this)
+
+        this.wave_timer_visual = this.add.sprite(800,150,"wave timer").setScale(2,2)
         this.cursor_ref = this.progress_bar.cursor
         
 

@@ -23,7 +23,16 @@ class Tutorial_scene extends Phaser.Scene {
     create() {
 
         this.main_window = this.add.image(800,450,'Window');
+        this.main_window.scene_ref = this
+        this.main_window.setInteractive()
+        this.main_window.on('pointerdown', function() {
+            
+            this.scene_ref.surface_ref.scene.resume('surface')
+            this.destroy()
+         }, this.main_window);
         //this.add.text(500,500,'TEST')
+
+        this.show_window_02 = false
 
         Tuto_ref = this
 
